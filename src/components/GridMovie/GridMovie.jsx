@@ -13,7 +13,7 @@ import ConvertedImage from "~/components/PaginationCustom"
 
 const cx = classNames.bind(styles);
 
-function GridMovie({ page, data, limit, onHandlePagination }) {
+function GridMovie({ page, data, limit, onHandlePagination, result }) {
   const [loadedImages, setLoadedImages] = useState([]);
   const [slug, setSlug] = React.useState(null);
   const [movieDetail, setMovieDetail] = React.useState(null);
@@ -63,7 +63,9 @@ function GridMovie({ page, data, limit, onHandlePagination }) {
 
   return (
     <>
-      <Grid container spacing={5} sx={{ marginTop: "45px", justifyContent: "center" }}>
+      {result &&  <h2  style={{ textAlign:"center", fontWeight:"bold", color: "white", marginTop:"70px" }}>Kết quả tìm kiếm "{result}"</h2>}
+      <Grid container spacing={4} sx={{ marginTop: "45px", justifyContent: "center" }}>
+
         {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
         {
           limitedItems?.map((movie, index) => {
@@ -76,9 +78,9 @@ function GridMovie({ page, data, limit, onHandlePagination }) {
 
 
             return (
-              <Grid item key={index} className={cx('item')}>  
+              <Grid item key={index}  className={cx('item')}>  
                 {/* <ConvertedImage imageUrl={movie} /> */}
-                <img style={{ objectFit:"cover" }} width={220} height={341} src={imageURL} alt="Empty Image" />
+                <img style={{ objectFit:"cover" }} className={cx('img-item')} src={imageURL} alt="Empty Image" />
 
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>

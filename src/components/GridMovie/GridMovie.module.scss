@@ -101,24 +101,33 @@ h1 {
   height: 100%;
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
   background-color: none;
-  top: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s;
   display: none;
+  width: 100%;
 
   .movies-title {
     font-size: 12px;
     width: 220px;
-    position: relative;
-    right: -1%;
-    top: 77%;
+    position: absolute;
+ 
+    left: 55%;
+    transform: translate(-50%, -50%);
+    top: 75%;
     color: #fff;
   }
 
   .movies-info {
     font-size: 10px;
-    position: relative;
-    right: -1%;
-    top: 80%;
+    position: absolute;
+ 
+    top: 85%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+
     color: #fff;
   }
 }
@@ -126,17 +135,22 @@ h1 {
 .btn-watch-movies-icon {
   position: absolute;
   top: 45%;
-  left: 50%;
+  left: 55%;
   transform: translate(-50%, -50%);
   cursor: pointer;
   transition: 0.1s all ease-out;
 }
 
 .btn-watch-icon-sizes {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
 }
 
+
+.img-item {
+  width: 220px;
+  height: 350px;
+}
 
 
 
@@ -146,4 +160,14 @@ h1 {
   a.arrow__btn {
     display: none;
   }
+}
+
+
+
+@media only screen and (max-width: 764px) {
+  .img-item {
+    width: 150px;
+    height: 220px;
+  }
+  
 }

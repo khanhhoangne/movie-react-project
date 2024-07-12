@@ -65,6 +65,10 @@ export default function MovieSlider({ title, data }) {
           clickable: true,
         }}
         breakpoints={{
+          330: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
           640: {
             slidesPerView: 2,
             spaceBetween: 20,
@@ -91,7 +95,7 @@ export default function MovieSlider({ title, data }) {
 
             return (
               <SwiperSlide key={movie._id} className={cx('item')}>
-                <img style={{ objectFit:"cover" }} width={220} height={341} src={imageURL} alt="Empty Image" />
+                <img style={{ objectFit:"cover" }} className={cx('img-item')} src={imageURL} alt="Empty Image" />
 
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>

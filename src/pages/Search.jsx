@@ -26,8 +26,7 @@ function Search() {
 
     return (
         <>
-            <h2 style={{ textAlign:"left", fontWeight:"bold", color: "white", marginTop:"55px" }}>Kết quả tìm kiếm "{params.query}"</h2>
-            <GridMovie page={1} data={data?.data.data.items} limit={20} />
+            <GridMovie page={1} data={data?.data.data.items} limit={20} result={params.query} />
         </>
     )
 }
