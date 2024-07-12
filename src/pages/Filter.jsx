@@ -7,7 +7,7 @@ import { useLayoutEffect } from 'react';
 import getData from '~/hooks/getData';
 import GridMovie from '~/components/GridMovie';
 import ConvertImage from '~/components/PaginationCustom';
-
+import SpeedDialMUI from '~/components/SpeedDialMUI';
 
 const types = [
     {

@@ -83,3 +83,32 @@
   top: 0;
   left: 0;
 }
+
+
+@media only screen and (max-width: 764px) {
+  .item-tilte {
+    margin-bottom: 36px;
+  }
+  
+  .img-item {
+    height: auto;
+  }
+
+  .btn-1 {
+    padding: 1px 17px;
+
+    a{
+      span{
+        display: none;
+      }
+    }
+  }
+
+  .item-des {
+    width: 78%;
+    bottom: -16%;
+    font-size: 0.6rem;
+    margin-left: 18px;
+  }
+  
+}
