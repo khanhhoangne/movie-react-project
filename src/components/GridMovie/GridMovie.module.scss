@@ -1,0 +1,149 @@
+$itemGrow: 1.2;
+$duration: 250ms;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+}
+
+h1 {
+  font-family: Arial;
+  color: red;
+  text-align: center;
+}
+
+.item {
+  padding: 0 2px;
+  transition: $duration all;
+  position: relative;
+
+
+  &:hover {
+    margin: 0 5px;
+    transform: scale(1.1);
+    // transform-origin: 40% 10%;
+    z-index: 3;
+  }
+
+
+  &:hover .back {
+    top: 1px;
+    display: block;
+  }
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 100%);
+  overflow: hidden;
+  scroll-behavior: smooth;
+
+  section {
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    margin: 20px 0;
+
+    .item {
+      padding: 0 2px;
+      transition: $duration all;
+      position: relative;
+
+      &:hover {
+        margin: 0 40px;
+        transform: scale(1.23);
+      }
+
+      &:hover .back {
+        top: 1px;
+      }
+
+
+    }
+
+    a {
+      position: absolute;
+      color: #fff;
+      text-decoration: none;
+      font-size: 4em;
+      background: rgb(0, 0, 0);
+      width: 80px;
+      padding: 20px;
+      text-align: center;
+      z-index: 1;
+
+      &:nth-of-type(1) {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+      }
+
+      &:nth-of-type(2) {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+      }
+
+    }
+
+  }
+}
+
+.back {
+  position: absolute;
+  height: 100%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
+  background-color: none;
+  top: 100%;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s;
+  display: none;
+
+  .movies-title {
+    font-size: 12px;
+    width: 220px;
+    position: relative;
+    right: -1%;
+    top: 77%;
+    color: #fff;
+  }
+
+  .movies-info {
+    font-size: 10px;
+    position: relative;
+    right: -1%;
+    top: 80%;
+    color: #fff;
+  }
+}
+
+.btn-watch-movies-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: 0.1s all ease-out;
+}
+
+.btn-watch-icon-sizes {
+  height: 50px;
+  width: 50px;
+}
+
+
+
+
+
+// Remove the arrow for Mobile
+@media only screen and (max-width: 600px) {
+  a.arrow__btn {
+    display: none;
+  }
+}

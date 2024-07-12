@@ -1,0 +1,95 @@
+/*Slie*/
+.img-item {
+  overflow: hidden;
+  position: relative;
+  height: 70vh;
+  width: 100%;
+}
+
+.item-img-tilte {
+  margin-top: 180px;
+  margin-left: 80px;
+}
+
+.item-tilte {
+  margin-bottom: 45px;
+}
+
+
+
+.item-des {
+  font-size: 0.9rem;
+  color: #fff;
+  margin-top: 120px;
+  margin-left: 80px;
+  text-shadow: 0px 2px 4px rgb(0 0 0 / 65%);
+  width: 740px;
+  position: absolute;
+  bottom: 7.5%;
+}
+
+.btn-1 {
+  text-decoration: none;
+  color: #fff;
+  margin-top: -30px;
+  padding: 19px 66px;
+  background-color: #0077c8;
+  border-radius: 25px;
+  z-index: 2;
+  width: 20%;
+  text-align: center;
+  margin-bottom: 15px;
+
+  a{
+    color: #fff;
+    font-weight: 1000;
+
+    &:hover{
+      color: #fff;
+    }
+  }
+
+  &:hover{
+    background-color: #3488c1;
+  }
+}
+
+
+
+/*butoonm play banner */
+
+.top-down {
+  transform: translateY(-50px);
+  // visibility: hidden;
+  opacity: 1;
+  transition: 0.5s ease-out;
+  text-align: left;
+}
+
+.top-down-btn {
+  transform: translateY(-50px);
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.7s ease-in;
+}
+
+.opacity-background {
+  position: absolute;
+  height: 100%;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0));
+  background-color: none;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.chip {
+  display: flex;
+
+  .chip-item {
+    color: white;
+    border: 1px solid;
+    border-radius: 8px;
+    margin: 6px;
+  }
+}

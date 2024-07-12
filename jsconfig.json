@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    /* resolver root path */
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ]
+}
