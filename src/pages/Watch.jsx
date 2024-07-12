@@ -57,7 +57,7 @@ function Watch() {
 
     if (isSuccess) {
         return (
-            <div style={{ width: '1000px', overflowX: 'hidden' }}>
+            <div style={{ overflowX: 'hidden' }}>
 
                 <iframe
                     src={linkEmbed}
