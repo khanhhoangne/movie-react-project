@@ -8,6 +8,7 @@ import getData from '~/hooks/getData';
 import GridMovie from '~/components/GridMovie';
 import ConvertImage from '~/components/PaginationCustom';
 import SpeedDialMUI from '~/components/SpeedDialMUI';
+import { Box } from '@mui/material';
 
 const types = [
     {
@@ -153,8 +154,8 @@ function Filter() {
 
     return (
         <>
-            {/* {mobileDevice && !mustBeLoading && <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />} */}
-            { <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />}
+            <Box>            { <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />}
+            </Box>
             {mustBeLoading && <span className="loader"></span>}
             {!mustBeLoading && listMovies && listMovies.length > 0 && <GridMovie page={page} data={listMoviesByFilter} limit={20} onHandlePagination={handlePagination} />}
         </>
