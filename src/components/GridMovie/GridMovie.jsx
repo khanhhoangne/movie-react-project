@@ -64,7 +64,7 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
   return (
     <>
       {result &&  <h2  style={{ textAlign:"center", fontWeight:"bold", color: "white", marginTop:"70px" }}>Kết quả tìm kiếm "{result}"</h2>}
-      <Grid container spacing={4} sx={{ marginTop: "45px", justifyContent: "center" }}>
+      <Grid container spacing={4} sx={{ marginTop: "83px", justifyContent: "center" }}>
 
         {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
         {

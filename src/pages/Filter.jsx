@@ -149,11 +149,12 @@ function Filter() {
     const mustBeLoading = ( ref.current || isLoading || isRefetching || listMovies.length === 0);
 
     console.log('mustBeLoading', mustBeLoading);
- 
+    const mobileDevice = window.innerWidth <= 765;
 
     return (
         <>
-            <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />
+            {/* {mobileDevice && !mustBeLoading && <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />} */}
+            { <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />}
             {mustBeLoading && <span className="loader"></span>}
             {!mustBeLoading && listMovies && listMovies.length > 0 && <GridMovie page={page} data={listMoviesByFilter} limit={20} onHandlePagination={handlePagination} />}
         </>
