@@ -15,7 +15,7 @@ export default function ScrollableTabs({ types, onChangeMovieType }) {
   };  
 
   return (
-    <Box className={cx('tabs')} sx={{ zIndex:"999", position:'fixed', maxWidth: { xs: 320, sm: 480 }, bgcolor: 'background.paper', borderRadius: '25px', top: '50%', left: '50%', marginTop:'-333px', marginLeft:'-270px'}}>
+    <Box className={cx('tabs')} sx={{ zIndex:"999999999999999999", position:'fixed', maxWidth: { xs: 320, sm: 480 }, bgcolor: 'background.paper', borderRadius: '25px', top: '50%', left: '50%', marginTop:'-333px', marginLeft:'-270px'}}>
       <Tabs
         value={value}
         onChange={handleChange}
