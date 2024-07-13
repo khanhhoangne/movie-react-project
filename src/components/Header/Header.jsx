@@ -123,7 +123,7 @@ function Header() {
             noWrap
             component="div"
             sx={{
-              zIndex: "9999999999",
+              zIndex: "999999999999999",
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
