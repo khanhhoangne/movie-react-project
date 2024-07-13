@@ -81,6 +81,10 @@ export default function MovieSlider({ title, data }) {
             slidesPerView: 6,
             spaceBetween: 20,
           },
+          1920: {
+            slidesPerView: 7,
+            spaceBetween: 20,
+          }
         }}
         modules={[Pagination]}
         className="mySwiper"
