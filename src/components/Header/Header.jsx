@@ -99,6 +99,7 @@ function Header() {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       navigate(`/search/${e.target.value}`);
+      setSearchValue('');
       queryClient.clear();
     }
   }
