@@ -39,7 +39,7 @@ function Home() {
     return await httpRequest.get('v1/api/danh-sach/phim-bo');
   },{refetchOnWindowFocus: false})
 
-  const { data: queryMainData } = useQuery('movies_main_home', async () => {
+  const { data: queryMainData, isLoading: mainLoading } = useQuery('movies_main_home', async () => {
 
     const requests = mainMovies.map(async (page) => await httpRequest.get(`phim/${page}`));
 
@@ -47,7 +47,7 @@ function Home() {
   },{refetchOnWindowFocus: true})
 
 
-  if(querySeriesLoading) {
+  if(querySeriesLoading && mainLoading) {
     return (
       <span className="loader"></span>
     );
