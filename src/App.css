@@ -74,3 +74,7 @@ nav>ul>li>.MuiPaginationItem-root, nav>.MuiPaginationItem-icon, nav>.MuiButtonBa
   background: #31318a!important;
   color: white!important;
 }
+
+a{
+  color: white!important;
+}

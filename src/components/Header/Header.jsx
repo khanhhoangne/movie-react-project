@@ -129,7 +129,7 @@ function Header() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'white',
+              color: 'white!important',
               textDecoration: 'none',
               cursor: 'pointer'
             }}
