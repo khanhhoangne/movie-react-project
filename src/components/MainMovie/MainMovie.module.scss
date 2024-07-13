@@ -91,7 +91,7 @@
   }
   
   .img-item {
-    height: auto;
+    height: 42vh;
   }
 
   .btn-1 {
@@ -109,6 +109,10 @@
     bottom: -16%;
     font-size: 0.6rem;
     margin-left: 18px;
+  }
+
+  .img-item-slide {
+    height: 100%;
   }
   
 }

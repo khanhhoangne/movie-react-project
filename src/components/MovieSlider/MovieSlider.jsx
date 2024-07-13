@@ -67,7 +67,7 @@ export default function MovieSlider({ title, data }) {
         breakpoints={{
           330: {
             slidesPerView: 2,
-            spaceBetween: 10,
+            spaceBetween: -25,
           },
           640: {
             slidesPerView: 2,

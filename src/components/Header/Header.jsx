@@ -111,7 +111,7 @@ function Header() {
   return (
 
     <AppBar position="fixed" sx={{
-      backgroundColor: "black", zIndex: "999999"
+      backgroundColor: "black", zIndex: "9999999999"
     }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -122,12 +122,13 @@ function Header() {
             noWrap
             component="div"
             sx={{
+              zIndex: "9999999999",
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'white',
               textDecoration: 'none',
               cursor: 'pointer'
             }}
@@ -167,7 +168,7 @@ function Header() {
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Link to={page.path}>
-                    <Typography textAlign="center">{page.name}</Typography>
+                    <Typography color={'black'} textAlign="center">{page.name}</Typography>
                   </Link>
                 </MenuItem>
               ))}
