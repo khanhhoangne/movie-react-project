@@ -7,27 +7,13 @@ import SliderMain from "react-slick";
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function MainMovie({ data }) {
 
-  console.log('Main');
-
-  if (data !== undefined) {
-    data = [data, data, data, data];
-  }
-
-  const settings = {
-    arrows: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    cssEase: "linear",
-    speed: 700,
-    accessibility: false
-  };
+  console.log('Main', data);
 
   return (
     <Swiper
@@ -57,18 +43,18 @@ function MainMovie({ data }) {
         data?.map((movie, index) => {
           return (
             <SwiperSlide key={index} className={cx('img-item')}>
-              <img className={cx('img-item-slide')} width="100%" src={movie.thumb_url} />
+              <img className={cx('img-item-slide')} width="100%" src={movie.data.movie.thumb_url} />
 
               <div className={cx('opacity-background')}>
                 <div className={cx('item-des', 'top-down')} >
                   <h2 className={cx('item-tilte')}>
-                    {movie.origin_name}
+                    {movie.data.movie.origin_name}
                   </h2>
                   <div className={cx('btn-1')}>
-                    <a href="#" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LiveTvIcon /> <span style={{ marginLeft: '9px' }}>Xem Ngay</span></a>
+                    <Link to={`/watch/${movie.data.movie.slug}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LiveTvIcon /> <span style={{ marginLeft: '9px' }}>Xem Ngay</span></Link>
                   </div>
                   <div>
-                    {movie.content}
+                    {movie.data.movie.content}
                   </div>
                 </div>
 

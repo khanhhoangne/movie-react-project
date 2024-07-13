@@ -6,6 +6,13 @@ import { useQuery } from 'react-query';
 import Image from '~/components/Image';
 import { Button } from '@mui/material';
 
+const mainMovies = [
+  'truyen-co-hac-am-grimm',
+  'hanh-tinh-khi-vuong-quoc-moi',
+  'cong-ty-quai-vat-2021',
+  'gau-pooh-mau-va-mat-2'
+]
+
 function Home() {
   console.log('home');
   const LIMIT_MOVIES = 10;
@@ -33,7 +40,10 @@ function Home() {
   },{refetchOnWindowFocus: false})
 
   const { data: queryMainData } = useQuery('movies_main_home', async () => {
-    return await httpRequest.get('phim/thanh-guom-diet-quy-dai-tru-dac-huan');
+
+    const requests = mainMovies.map(async (page) => await httpRequest.get(`phim/${page}`));
+
+    return await Promise.all(requests);
   },{refetchOnWindowFocus: true})
 
 
@@ -43,9 +53,11 @@ function Home() {
     );
   }
 
+  console.log('main', queryMainData);
+
   return (
     <Fragment>
-      <MainMovie data={queryMainData?.data.movie} />
+      <MainMovie data={queryMainData} />
       <MovieSlider title={titleSection[0]}  data={queryLatestData?.data.items} />
       <MovieSlider title={titleSection[1]}  data={queryCartoonData?.data.data.items} />
       <MovieSlider title={titleSection[2]}  data={queryShowData?.data.data.items} />
