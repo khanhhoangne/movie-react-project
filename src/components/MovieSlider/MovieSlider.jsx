@@ -11,7 +11,7 @@ import httpRequest from '~/utils/httpRequest';
 import { useEffect, useRef, useLayoutEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-
+import SimpleBackdrop from '~/components/SimpleBackdrop';
 
 
 // Import Swiper styles
@@ -25,13 +25,12 @@ const cx = classNames.bind(styles);
 
 export default function MovieSlider({ title, data }) {
 
-  console.log('slider', data);
   const [slug, setSlug] = React.useState(null);
   const [movieDetail, setMovieDetail] = React.useState(null);
   const [imageLoaded, setImageLoaded] = useState(Array(data).fill(false));
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleImageLoad = (index) => {
-    console.log('setted');
     setImageLoaded((prevLoaded) => {
       const newLoaded = [...prevLoaded];
       newLoaded[index] = true;
@@ -44,9 +43,12 @@ export default function MovieSlider({ title, data }) {
   }
 
   React.useEffect(() => {
-    if (slug) {
+    if (slug && isLoading) {
       getMovieDetail()
         .then((data) => { 
+
+          setIsLoading(false);
+
           if (data.data.status !== false && data.data.status !== undefined) {
             setMovieDetail(data.data);
           }
@@ -58,18 +60,18 @@ export default function MovieSlider({ title, data }) {
           }
         });
     }
-  }, [slug])
+  }, [slug, isLoading])
 
 
 
   const handleDialogOver = (e) => {
+    setIsLoading(true);
     const element = e.target;
     const slugData = element.getAttribute("data-slug");
     setSlug(slugData);
   }
 
   const handleDialogExit = (e) => {
-    console.log('handleDialogExit');
     setMovieDetail(null);
   }
 
@@ -77,6 +79,7 @@ export default function MovieSlider({ title, data }) {
 
   return (
     <>
+      <SimpleBackdrop open={isLoading && slug} />
       <h2 style={{ color: 'white' }}>{title}</h2>
       {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
       <Swiper
@@ -122,7 +125,7 @@ export default function MovieSlider({ title, data }) {
               <SwiperSlide key={movie._id} className={cx('item')}>
                 <div key={index} className="image-item">
                   <img
-                    style={{ objectFit: !imageLoaded[index] ? '' : 'cover' }}
+                    style={{ objectFit: 'cover' }}
                     alt={`Image ${index}`}
                     className={cx('img-item')} src={!imageLoaded[index] ? 'https://imgur.com/ikQanUS.gif' : imageURL}
                     onLoad={() => handleImageLoad(index)}
@@ -131,7 +134,7 @@ export default function MovieSlider({ title, data }) {
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>
                   <div className={cx('movies-info')}>{movie.episode_current}</div>
-                  <Link to={linked} onMouseEnter={handleDialogOver} className={cx('btn-watch-movies-icon')}>
+                  <Link onClick={handleDialogOver} className={cx('btn-watch-movies-icon')}>
                     <img className={cx('btn-watch-icon-sizes')} data-slug={movie.slug} src="https://miplayvn.com/img/icon/play-button.png" alt="" />
                   </Link>
                 </div>

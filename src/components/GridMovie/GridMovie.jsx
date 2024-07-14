@@ -9,6 +9,7 @@ import Pagination from '@mui/material/Pagination';
 import LazyLoad from 'react-lazyload';
 import Skeleton from '@mui/material/Skeleton';
 import ConvertedImage from "~/components/PaginationCustom"
+import SimpleBackdrop from '~/components/SimpleBackdrop';
 
 
 const cx = classNames.bind(styles);
@@ -19,6 +20,7 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
   const [movieDetail, setMovieDetail] = React.useState(null);
   const limitedItems = data.slice((page - 1) * limit, (page - 1) * limit + limit);
   const [imageLoaded, setImageLoaded] = useState(Array(limitedItems).fill(false));
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleImageLoad = (index) => {
     console.log('setted');
@@ -34,17 +36,20 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
   }
 
   React.useEffect(() => {
-    if (slug) {
+    if (slug && isLoading) {
       getMovieDetail()
         .then((data) => { 
+          setIsLoading(false);
+
           if (data.data.status !== false && data.data.status !== undefined) setMovieDetail(data.data) 
           if(data.data.status === undefined) setMovieDetail(decodeJSON(data.data));
         });
     }
-  }, [slug])
+  }, [slug, isLoading])
 
 
   const handleDialogOver = (e) => {
+    setIsLoading(true);
     const element = e.target;
     const slugData = element.getAttribute("data-slug");
     setSlug(slugData);
@@ -69,6 +74,7 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
 
   return (
     <>
+      <SimpleBackdrop open={isLoading && slug} />
       {result && <h2 style={{ textAlign: "center", fontWeight: "bold", color: "white", marginTop: "70px" }}>Kết quả tìm kiếm "{result}"</h2>}
       <Grid container spacing={4} sx={{ marginTop: "83px", justifyContent: "center" }}>
 
@@ -96,7 +102,7 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>
                   <div className={cx('movies-info')}>{movie.episode_current}</div>
-                  <Link to={{ pathname: linked }} onMouseEnter={handleDialogOver} relative="path" className={cx('btn-watch-movies-icon')}>
+                  <Link onClick={handleDialogOver} relative="path" className={cx('btn-watch-movies-icon')}>
                     <img className={cx('btn-watch-icon-sizes')} data-slug={movie.slug} src="https://miplayvn.com/img/icon/play-button.png" alt="" />
                   </Link>
                 </div>

@@ -93,3 +93,24 @@
     margin: 6px;
   }
 }
+
+@media only screen and (max-width: 764px) {
+  .dialog-paper {
+    min-width: unset!important;
+  }
+
+  .item-des {
+    width: auto!important;
+    font-size: 0.5rem;
+    margin-left: 11px!important;
+  }
+
+  .btn-1 {
+    width: 48%!important;
+    padding: 7px 66px!important;
+  }
+
+  .img-item {
+    height: 60vh!important;
+  }
+}
