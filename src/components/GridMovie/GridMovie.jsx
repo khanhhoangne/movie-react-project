@@ -87,7 +87,7 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
               <Grid item key={index} className={cx('item')}>
                 <div key={index} className="image-item">
                   <img
-                    style={{ objectFit: `${!imageLoaded[index]} ? '' : 'cover'` }}
+                    style={{ objectFit: !imageLoaded[index] ? '' : 'cover' }}
                     alt={`Image ${index}`}
                     className={cx('img-item')} src={!imageLoaded[index] ? 'https://imgur.com/ikQanUS.gif' : imageURL}
                     onLoad={() => handleImageLoad(index)}
