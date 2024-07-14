@@ -31,8 +31,14 @@ function Watch() {
         return (
             <span className="loader"></span>
         );
-
     }
+
+
+    if (data.data.status === undefined) {
+        return <h2 style={{ color: 'white' }}>Something wrong, please come back later</h2>;
+    }
+
+
 
     if (!data.data.status) {
         return <h2 style={{ color: 'white' }}>{data.data.msg}</h2>;

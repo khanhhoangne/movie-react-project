@@ -18,22 +18,27 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
   const [slug, setSlug] = React.useState(null);
   const [movieDetail, setMovieDetail] = React.useState(null);
   const limitedItems = data.slice((page - 1) * limit, (page - 1) * limit + limit);
+  const [imageLoaded, setImageLoaded] = useState(Array(limitedItems).fill(false));
 
-  console.log('limit', limitedItems);
-  console.log('page', page);
+  const handleImageLoad = (index) => {
+    console.log('setted');
+    setImageLoaded((prevLoaded) => {
+      const newLoaded = [...prevLoaded];
+      newLoaded[index] = true;
+      return newLoaded;
+    });
+  };
 
   const getMovieDetail = async () => {
-    console.log(111);
     return await httpRequest.get('phim/' + slug);
   }
 
   React.useEffect(() => {
     if (slug) {
       getMovieDetail()
-        .then((data) => { if (data.data.status !== false) setMovieDetail(data) });
+        .then((data) => { if (data.data.status !== false && data.data.status !== undefined) setMovieDetail(data) });
     }
   }, [slug])
-
 
 
   const handleDialogOver = (e) => {
@@ -57,13 +62,11 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
     return result;
   }
 
-  const handleImageLoad = (imageId) => {
-    // setLoadedImages(prevState => [...prevState, imageId]); 
-  };
+
 
   return (
     <>
-      {result &&  <h2  style={{ textAlign:"center", fontWeight:"bold", color: "white", marginTop:"70px" }}>Kết quả tìm kiếm "{result}"</h2>}
+      {result && <h2 style={{ textAlign: "center", fontWeight: "bold", color: "white", marginTop: "70px" }}>Kết quả tìm kiếm "{result}"</h2>}
       <Grid container spacing={4} sx={{ marginTop: "83px", justifyContent: "center" }}>
 
         {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
@@ -78,10 +81,15 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
 
 
             return (
-              <Grid item key={index}  className={cx('item')}>  
-                {/* <ConvertedImage imageUrl={movie} /> */}
-                <img style={{ objectFit:"cover" }} className={cx('img-item')} src={imageURL} alt="Empty Image" />
-
+              <Grid item key={index} className={cx('item')}>
+                <div key={index} className="image-item">
+                  <img
+                    style={{ objectFit: `${!imageLoaded[index]} ? '' : 'cover'` }}
+                    alt={`Image ${index}`}
+                    className={cx('img-item')} src={!imageLoaded[index] ? 'https://imgur.com/ikQanUS.gif' : imageURL}
+                    onLoad={() => handleImageLoad(index)}
+                  />
+                </div>
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>
                   <div className={cx('movies-info')}>{movie.episode_current}</div>

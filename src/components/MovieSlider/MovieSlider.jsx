@@ -8,7 +8,7 @@ import LazyLoad from 'react-lazyload';
 import { Link } from 'react-router-dom';
 import DialogMUI from '~/components/DialogMUI';
 import httpRequest from '~/utils/httpRequest';
-import { useEffect, useRef, useLayoutEffect } from 'react';
+import { useEffect, useRef, useLayoutEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
@@ -23,9 +23,20 @@ const cx = classNames.bind(styles);
 
 
 export default function MovieSlider({ title, data }) {
-  console.log('slider');
+
+  console.log('slider', data);
   const [slug, setSlug] = React.useState(null);
   const [movieDetail, setMovieDetail] = React.useState(null);
+  const [imageLoaded, setImageLoaded] = useState(Array(data).fill(false));
+
+  const handleImageLoad = (index) => {
+    console.log('setted');
+    setImageLoaded((prevLoaded) => {
+      const newLoaded = [...prevLoaded];
+      newLoaded[index] = true;
+      return newLoaded;
+    });
+  };
 
   const getMovieDetail = async () => {
     return await httpRequest.get('phim/' + slug);
@@ -34,11 +45,13 @@ export default function MovieSlider({ title, data }) {
   React.useEffect(() => {
     if (slug) {
       getMovieDetail()
-        .then((data) => {if(data.data.status !== false) setMovieDetail(data)});
+        .then((data) => { if (data.data.status !== false && data.data.status !== undefined) {
+          setMovieDetail(data);
+        } });
     }
   }, [slug])
 
-  
+
 
   const handleDialogOver = (e) => {
     const element = e.target;
@@ -49,10 +62,9 @@ export default function MovieSlider({ title, data }) {
   const handleDialogExit = (e) => {
     console.log('handleDialogExit');
     setMovieDetail(null);
-  } 
+  }
 
   const handleDragStart = (e) => e.preventDefault();
-
 
   return (
     <>
@@ -99,8 +111,14 @@ export default function MovieSlider({ title, data }) {
 
             return (
               <SwiperSlide key={movie._id} className={cx('item')}>
-                <img style={{ objectFit:"cover" }} className={cx('img-item')} src={imageURL} alt="Empty Image" />
-
+                <div key={index} className="image-item">
+                  <img
+                    style={{ objectFit: `${!imageLoaded[index]} ? '' : 'cover'` }}
+                    alt={`Image ${index}`}
+                    className={cx('img-item')} src={!imageLoaded[index] ? 'https://imgur.com/ikQanUS.gif' : imageURL}
+                    onLoad={() => handleImageLoad(index)}
+                  />
+                </div>
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>
                   <div className={cx('movies-info')}>{movie.episode_current}</div>
