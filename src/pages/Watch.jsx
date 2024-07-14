@@ -6,6 +6,7 @@ import { Container, Grid } from '@mui/material';
 import VerticalTabs from '~/components/VerticalTabs';
 import Pagination from '@mui/material/Pagination';
 import PaginationCustom from '~/components/PaginationCustom';
+import decodeJSON from '~/utils/decodeJSON';
 
 function Watch() {
     const [episode, setEpisode] = useState(null);
@@ -35,7 +36,8 @@ function Watch() {
 
 
     if (data.data.status === undefined) {
-        return <h2 style={{ color: 'white' }}>Something wrong, please come back later</h2>;
+       data.data = decodeJSON(data.data);
+
     }
 
 
@@ -45,10 +47,10 @@ function Watch() {
     }
 
     if (episode === null) {
-        if(data?.data.episodes[0].server_data.length === 0) {
-            return <h2 style={{color: 'white'}}>The movie has no data yet, please come back if you see a new episode</h2>;
+        if (data?.data.episodes[0].server_data.length === 0) {
+            return <h2 style={{ color: 'white' }}>The movie has no data yet, please come back if you see a new episode</h2>;
         }
-        
+
         linkEmbed = data?.data.episodes[0].server_data[0].link_embed;
     } else {
         linkEmbed = data?.data.episodes[0].server_data.filter(i => [episode].includes(i.slug))
@@ -62,6 +64,8 @@ function Watch() {
 
 
     if (isSuccess) {
+        data.data.episodes[0].server_data = (data.data.episodes[0].server_data).filter(d => d.slug !== '')
+
         return (
             <div style={{ overflowX: 'hidden' }}>
 
@@ -75,7 +79,7 @@ function Watch() {
                     height={600}
                 />
                 {
-                    !hiddenScrollTab &&  <PaginationCustom current={episode} handleChangeEpisode={handleChangeEpisode} episodes={data?.data.episodes[0].server_data} />
+                    !hiddenScrollTab && <PaginationCustom current={episode} handleChangeEpisode={handleChangeEpisode} episodes={data?.data.episodes[0].server_data} />
 
                 }
 

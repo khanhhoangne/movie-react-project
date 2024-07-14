@@ -36,7 +36,10 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
   React.useEffect(() => {
     if (slug) {
       getMovieDetail()
-        .then((data) => { if (data.data.status !== false && data.data.status !== undefined) setMovieDetail(data) });
+        .then((data) => { 
+          if (data.data.status !== false && data.data.status !== undefined) setMovieDetail(data.data) 
+          if(data.data.status === undefined) setMovieDetail(decodeJSON(data.data));
+        });
     }
   }, [slug])
 

@@ -41,7 +41,7 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
 
   console.log('dialog');
 
-  const linked = '/watch/' + dataMovie.data.movie.slug;
+  const linked = '/watch/' + dataMovie.movie.slug;
 
   const DialogComponent = () => (
     <Dialog
@@ -54,20 +54,20 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
 
       <DialogContentText onMouseLeave={handleDialogExit}>
         <div className={cx('img-item')}>
-          <img className={cx('img-item-slide')} width="100%" height="100%" src={dataMovie.data.movie.thumb_url} />
+          <img className={cx('img-item-slide')} width="100%" height="100%" src={dataMovie.movie.thumb_url} />
         </div>
 
         <div className={cx('opacity-background')}>
           <div className={cx('item-des', 'top-down')} >
             <h2 className={cx('item-tilte')}>
-              {dataMovie.data.movie.name}
+              {dataMovie.movie.name}
 
               <div className={cx('chip')}>
-                <Chip className={cx('chip-item')} label={dataMovie.data.movie.quality} />
-                <Chip className={cx('chip-item')} label={dataMovie.data.movie.year} />
+                <Chip className={cx('chip-item')} label={dataMovie.movie.quality} />
+                <Chip className={cx('chip-item')} label={dataMovie.movie.year} />
 
                 {
-                  (dataMovie.data.movie.country).map((country, index) => {
+                  (dataMovie.movie.country).map((country, index) => {
                     return (
                       <Chip key={index} className={cx('chip-item')} label={country.name} />
                     )
@@ -79,11 +79,11 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
               <Link to={linked} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LiveTvIcon /> <span style={{ marginLeft: '9px' }}>Xem Ngay</span></Link>
             </div>
             <div>
-              {dataMovie.data.movie.content}
+              {dataMovie.movie.content}
             </div>
             <div className={cx('chip')}>
               {
-                (dataMovie.data.movie.category).map((cate, index) => {
+                (dataMovie.movie.category).map((cate, index) => {
                   return (
                     <Chip key={index} className={cx('chip-item')} label={cate.name} />
                   )

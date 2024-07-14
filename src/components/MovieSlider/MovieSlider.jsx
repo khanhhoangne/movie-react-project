@@ -17,6 +17,7 @@ import { Pagination } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
+import decodeJSON from '~/utils/decodeJSON';
 
 
 const cx = classNames.bind(styles);
@@ -45,9 +46,17 @@ export default function MovieSlider({ title, data }) {
   React.useEffect(() => {
     if (slug) {
       getMovieDetail()
-        .then((data) => { if (data.data.status !== false && data.data.status !== undefined) {
-          setMovieDetail(data);
-        } });
+        .then((data) => { 
+          if (data.data.status !== false && data.data.status !== undefined) {
+            setMovieDetail(data.data);
+          }
+          
+          if(data.data.status === undefined) {
+            data = decodeJSON(data.data);
+
+            setMovieDetail(data);
+          }
+        });
     }
   }, [slug])
 
