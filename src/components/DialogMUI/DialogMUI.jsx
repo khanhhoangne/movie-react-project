@@ -64,7 +64,7 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
     >
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={handleDialogExit}
           sx={{
             position: 'absolute',
             right: 8,
