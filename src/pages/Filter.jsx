@@ -79,20 +79,20 @@ function Filter() {
     const [temp, setTemp] = useState(false);
     const ref = useRef(false);
     useEffect(() => {
-        if(ref.current) {
+        if (ref.current) {
             console.log(123);
             setTimeout(() => {
                 ref.current = false;
                 setTemp(!temp);
-            }, 1000) // Delay of 1000 milliseconds
-            
+            }, 500) // Delay of 1000 milliseconds
+
         }
     }, [page, movieType])
 
     const { data, isLoading, refetch, isRefetching, isStale } = useQuery('movies_all', async () => {
         const singlePages = Array.from({ length: 192 }, (_, i) => `${url}&page=${i + 1}`);
-        const seriesPages = Array.from({ length: 44 }, (_, i) =>  `${urlSeries}&page=${i + 1}`);
-        const cartoonPages = Array.from({ length: 27 }, (_, i) =>  `${urlCartoon}&page=${i + 1}`);
+        const seriesPages = Array.from({ length: 44 }, (_, i) => `${urlSeries}&page=${i + 1}`);
+        const cartoonPages = Array.from({ length: 27 }, (_, i) => `${urlCartoon}&page=${i + 1}`);
 
         const mappingPages = [singlePages, seriesPages, cartoonPages].flat(1);
 
@@ -113,7 +113,7 @@ function Filter() {
             top: 0,
             behavior: "smooth"
         });
-        
+
         const element = e.target;
         const categoryData = element.getAttribute("data-category");
         setMovieType(categoryData);
@@ -141,20 +141,21 @@ function Filter() {
             top: 0,
             behavior: "smooth"
         });
-        
+
         setPage(parseInt(e.target.innerText));
     }
 
     console.log('listResult', listMoviesByFilter);
 
-    const mustBeLoading = ( ref.current || isLoading || isRefetching || listMovies.length === 0);
+    const mustBeLoading = (ref.current || isLoading || isRefetching || listMovies.length === 0);
 
     console.log('mustBeLoading', mustBeLoading);
     const mobileDevice = window.innerWidth <= 765;
 
     return (
         <>
-            <Box>            { <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />}
+            <Box>
+                {<ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />}
             </Box>
             {mustBeLoading && <span className="loader"></span>}
             {!mustBeLoading && listMovies && listMovies.length > 0 && <GridMovie page={page} data={listMoviesByFilter} limit={20} onHandlePagination={handlePagination} />}
