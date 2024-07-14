@@ -12,15 +12,20 @@ import styles from './DialogMUI.module.scss';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { Chip, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
-
-const CustomPaper = styled(Paper)({
- 
-});
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 
 const cx = classNames.bind(styles);
 
-const isDesktop = window.innerWidth > 765
+function checkDeviceType() {
+  const width = window.innerWidth;
+  if (width <= 768) {
+      return 'mobile';
+  } else {
+      return 'desktop';
+  }
+}
 
 function PaperComponent(props) {
   console.log(props);
@@ -30,7 +35,7 @@ function PaperComponent(props) {
       cancel={'[class*="MuiDialogContent-root"]'}
 
     >
-      <CustomPaper {...props} sx={{ zIndex: 100000000, minWidth: !isDesktop ? 'unset' : '900px', background: 'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }} />
+      <Paper {...props} sx={{ zIndex: 100000000, minWidth: checkDeviceType() === 'desktop' ? '900px' : 'unset', background: 'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }} />
     </Draggable>
   );
 }
@@ -57,6 +62,19 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
       aria-labelledby="draggable-dialog-title"
       sx={{ background: 'linear-gradient(192deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }}
     >
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            zIndex: 5,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
 
       <DialogContentText onMouseLeave={handleDialogExit}>
         <div className={cx('img-item')}>
