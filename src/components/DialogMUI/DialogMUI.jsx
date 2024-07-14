@@ -10,11 +10,17 @@ import Draggable from 'react-draggable';
 import classNames from 'classnames/bind';
 import styles from './DialogMUI.module.scss';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import { Chip } from '@mui/material';
+import { Chip, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
+
+const CustomPaper = styled(Paper)({
+ 
+});
 
 
 const cx = classNames.bind(styles);
+
+const isDesktop = window.innerWidth > 765
 
 function PaperComponent(props) {
   console.log(props);
@@ -24,7 +30,7 @@ function PaperComponent(props) {
       cancel={'[class*="MuiDialogContent-root"]'}
 
     >
-      <Paper {...props} className={cx('dialog-paper')} sx={{ zIndex: 100000000, minWidth: '900px', background: 'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }} />
+      <CustomPaper {...props} sx={{ zIndex: 100000000, minWidth: !isDesktop ? 'unset' : '900px', background: 'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }} />
     </Draggable>
   );
 }
@@ -49,7 +55,7 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
       PaperComponent={PaperComponent}
       onClose={handleClose}
       aria-labelledby="draggable-dialog-title"
-      sx={{background:'linear-gradient(192deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)'}}
+      sx={{ background: 'linear-gradient(192deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }}
     >
 
       <DialogContentText onMouseLeave={handleDialogExit}>
