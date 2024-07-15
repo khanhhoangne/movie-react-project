@@ -15,14 +15,17 @@ function Watch() {
 
     const params = useParams();
     console.log('watch');
-    const { data, isLoading, isError, isSuccess, refetch, isFetching } = useQuery('movies_watch', async () => {
-        console.log('refetch');
+    const { data, isLoading, isError, isSuccess, refetch, isFetching, isStale } = useQuery('movies_watch', async () => {
+        alert('refetch query');
         return await httpRequest.get('phim/' + params.movieSlug);
-    }, { refetchOnWindowFocus: false })
+    }, 
+    { 
+        refetchOnWindowFocus: false,
+        cacheTime: 6000000000000000,   // Example: 10 minutes
+    })
 
     const handleChangeEpisode = (episode) => {
         setEpisode(episode);
-
     }
 
     console.log(data);

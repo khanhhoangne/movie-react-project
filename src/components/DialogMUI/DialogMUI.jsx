@@ -43,7 +43,7 @@ function PaperComponent(props) {
 
 
 
-export default function DialogMUI({ handleDialogExit, dataMovie }) {
+export default React.memo(function DialogMUI({ handleDialogExit, dataMovie }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -58,7 +58,6 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
     <Dialog
       open={true}
       PaperComponent={PaperComponent}
-      onClose={handleClose}
       aria-labelledby="draggable-dialog-title"
       sx={{ background: 'linear-gradient(192deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }}
     >
@@ -127,4 +126,4 @@ export default function DialogMUI({ handleDialogExit, dataMovie }) {
       <DialogComponent />
     </React.Fragment>
   );
-}
+})

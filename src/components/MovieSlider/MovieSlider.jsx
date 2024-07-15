@@ -12,6 +12,7 @@ import { useEffect, useRef, useLayoutEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import SimpleBackdrop from '~/components/SimpleBackdrop';
+import Image from '~/components/Image';
 
 
 // Import Swiper styles
@@ -27,17 +28,8 @@ export default function MovieSlider({ title, data }) {
 
   const [slug, setSlug] = React.useState(null);
   const [movieDetail, setMovieDetail] = React.useState(null);
-  const [imageLoaded, setImageLoaded] = useState(Array(data).fill(false));
   const [isLoading, setIsLoading] = useState(true);
-
-  const handleImageLoad = (index) => {
-    setImageLoaded((prevLoaded) => {
-      const newLoaded = [...prevLoaded];
-      newLoaded[index] = true;
-      return newLoaded;
-    });
-  };
-
+ 
   const getMovieDetail = async () => {
     return await httpRequest.get('phim/' + slug);
   }
@@ -124,12 +116,7 @@ export default function MovieSlider({ title, data }) {
             return (
               <SwiperSlide key={movie._id} className={cx('item')}>
                 <div key={index} className="image-item">
-                  <img
-                    style={{ objectFit: 'cover' }}
-                    alt={`Image ${index}`}
-                    className={cx('img-item')} src={!imageLoaded[index] ? 'https://imgur.com/ikQanUS.gif' : imageURL}
-                    onLoad={() => handleImageLoad(index)}
-                  />
+                  <Image source={imageURL} limitedItems={data} index={movie._id} />
                 </div>
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>

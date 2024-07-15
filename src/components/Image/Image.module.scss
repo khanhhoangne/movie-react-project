@@ -1,0 +1,13 @@
+.img-item {
+    width: 220px;
+    height: 350px;
+}
+
+
+@media only screen and (max-width: 764px) {
+    .img-item {
+        width: 150px;
+        height: 220px;
+    }
+
+}

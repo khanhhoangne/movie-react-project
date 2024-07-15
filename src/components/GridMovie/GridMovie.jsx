@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './GridMovie.module.scss';
 import classNames from 'classnames/bind';
 import { Grid } from '@mui/material';
@@ -6,30 +6,17 @@ import { Link } from 'react-router-dom';
 import DialogMUI from '~/components/DialogMUI';
 import httpRequest from '~/utils/httpRequest';
 import Pagination from '@mui/material/Pagination';
-import LazyLoad from 'react-lazyload';
-import Skeleton from '@mui/material/Skeleton';
-import ConvertedImage from "~/components/PaginationCustom"
 import SimpleBackdrop from '~/components/SimpleBackdrop';
-
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
 function GridMovie({ page, data, limit, onHandlePagination, result }) {
-  const [loadedImages, setLoadedImages] = useState([]);
   const [slug, setSlug] = React.useState(null);
   const [movieDetail, setMovieDetail] = React.useState(null);
-  const limitedItems = data.slice((page - 1) * limit, (page - 1) * limit + limit);
-  const [imageLoaded, setImageLoaded] = useState(Array(limitedItems).fill(false));
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleImageLoad = (index) => {
-    console.log('setted');
-    setImageLoaded((prevLoaded) => {
-      const newLoaded = [...prevLoaded];
-      newLoaded[index] = true;
-      return newLoaded;
-    });
-  };
+  const limitedItems = data.slice((page - 1) * limit, (page - 1) * limit + limit);
 
   const getMovieDetail = async () => {
     return await httpRequest.get('phim/' + slug);
@@ -37,22 +24,24 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
 
   React.useEffect(() => {
     if (slug && isLoading) {
+      console.log('effect');
       getMovieDetail()
         .then((data) => { 
-          setIsLoading(false);
-
           if (data.data.status !== false && data.data.status !== undefined) setMovieDetail(data.data) 
           if(data.data.status === undefined) setMovieDetail(decodeJSON(data.data));
+
+          setIsLoading(false);
         });
     }
   }, [slug, isLoading])
 
 
   const handleDialogOver = (e) => {
-    setIsLoading(true);
+    console.log('over');
     const element = e.target;
     const slugData = element.getAttribute("data-slug");
     setSlug(slugData);
+    setIsLoading(true);
   }
 
   const handleDialogExit = (e) => {
@@ -61,10 +50,10 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
   }
 
   const divideAndRoundUpIfGreaterThanOne = (dividend, divisor) => {
-    let result = dividend / divisor;  // Perform the division
+    let result = dividend / divisor;
 
     if (result > 1) {
-      result = Math.ceil(result);  // Round up using Math.ceil() if result is greater than 1
+      result = Math.ceil(result);
     }
 
     return result;
@@ -74,11 +63,11 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
 
   return (
     <>
-      <SimpleBackdrop open={isLoading && slug} />
+      <SimpleBackdrop open={!movieDetail && slug && isLoading} />
       {result && <h2 style={{ textAlign: "center", fontWeight: "bold", color: "white", marginTop: "70px" }}>Kết quả tìm kiếm "{result}"</h2>}
       <Grid container spacing={4} sx={{ marginTop: "83px", justifyContent: "center" }}>
 
-        {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
+        {movieDetail && slug && !isLoading && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
         {
           limitedItems?.map((movie, index) => {
             let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
@@ -92,12 +81,7 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
             return (
               <Grid item key={index} className={cx('item')}>
                 <div key={index} className="image-item">
-                  <img
-                    style={{ objectFit: !imageLoaded[index] ? '' : 'cover' }}
-                    alt={`Image ${index}`}
-                    className={cx('img-item')} src={!imageLoaded[index] ? 'https://imgur.com/ikQanUS.gif' : imageURL}
-                    onLoad={() => handleImageLoad(index)}
-                  />
+                  <Image source={imageURL} limitedItems={limitedItems} index={movie._id} />
                 </div>
                 <div className={cx('back')}>
                   <div className={cx('movies-title')}>{movie.name}</div>
