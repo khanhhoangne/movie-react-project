@@ -35,7 +35,7 @@ function PaperComponent(props) {
       cancel={'[class*="MuiDialogContent-root"]'}
 
     >
-      <Paper {...props} sx={{ zIndex: 100000000, minWidth: checkDeviceType() === 'desktop' ? '900px' : 'unset', background: 'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }} />
+      <Paper {...props} sx={{ zIndex: 999999999999, minWidth: checkDeviceType() === 'desktop' ? '900px' : 'unset', background: 'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }} />
     </Draggable>
   );
 }

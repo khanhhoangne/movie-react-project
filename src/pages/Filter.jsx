@@ -150,7 +150,6 @@ function Filter() {
     const mustBeLoading = (ref.current || isLoading || isRefetching || listMovies.length === 0);
 
     console.log('mustBeLoading', mustBeLoading);
-    const mobileDevice = window.innerWidth <= 765;
 
     return (
         <>

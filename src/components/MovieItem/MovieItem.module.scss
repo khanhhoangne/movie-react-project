@@ -16,17 +16,18 @@ h1 {
   text-align: center;
 }
 
+
 .item {
   padding: 0 2px;
   transition: $duration all;
   position: relative;
-
+  
 
   &:hover {
-    margin: 0 5px;
+    // margin: 0 5px;
     transform: scale(1.1);
     // transform-origin: 40% 10%;
-    z-index: 3;
+    z-index: 99999;
   }
 
 
@@ -101,10 +102,7 @@ h1 {
   height: 100%;
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
   background-color: none;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+  top: 100%;
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s;
   display: none;
   width: 100%;
@@ -112,22 +110,18 @@ h1 {
   .movies-title {
     font-size: 12px;
     width: 76%;
-    position: absolute;
- 
-    left: 55%;
-    transform: translate(-50%, -50%);
+    position: relative;
     top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: #fff;
   }
 
   .movies-info {
     font-size: 10px;
-    position: absolute;
- 
-    top: 89%;
-    left: 55%;
-    transform: translate(-50%, -50%);
-
+    position: relative;
+    right: -1%;
+    top: 83%;
     color: #fff;
   }
 }
@@ -135,18 +129,22 @@ h1 {
 .btn-watch-movies-icon {
   position: absolute;
   top: 45%;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
   transition: 0.1s all ease-out;
 }
 
 .btn-watch-icon-sizes {
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
 }
 
 
+.img-item {
+  width: 220px;
+  height: 350px;
+}
 
 
 
@@ -158,3 +156,16 @@ h1 {
   }
 }
 
+@media only screen and (max-width: 764px) {
+  .img-item {
+    width: 150px;
+    height: 220px;
+  }
+
+  .item {
+    &:hover {
+      transform: scale(1);
+      z-index: 99999;
+    }
+  }
+}
