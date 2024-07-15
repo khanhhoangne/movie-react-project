@@ -16,7 +16,6 @@ function Watch() {
     const params = useParams();
     console.log('watch');
     const { data, isLoading, isError, isSuccess, refetch, isFetching, isStale } = useQuery('movies_watch', async () => {
-        alert('refetch query');
         return await httpRequest.get('phim/' + params.movieSlug);
     }, 
     { 

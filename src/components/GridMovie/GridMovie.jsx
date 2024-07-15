@@ -63,10 +63,9 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
 
   return (
     <>
-      <SimpleBackdrop open={!movieDetail && slug && isLoading} />
       {result && <h2 style={{ textAlign: "center", fontWeight: "bold", color: "white", marginTop: "70px" }}>Kết quả tìm kiếm "{result}"</h2>}
       <Grid container spacing={4} sx={{ marginTop: "83px", justifyContent: "center" }}>
-
+        <SimpleBackdrop open={!movieDetail && slug && isLoading} />
         {movieDetail && slug && !isLoading && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
         {
           limitedItems?.map((movie, index) => {

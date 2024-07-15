@@ -67,8 +67,6 @@ export default function MovieSlider({ title, data }) {
     setMovieDetail(null);
   }
 
-  const handleDragStart = (e) => e.preventDefault();
-
   return (
     <>
       <SimpleBackdrop open={isLoading && slug} />

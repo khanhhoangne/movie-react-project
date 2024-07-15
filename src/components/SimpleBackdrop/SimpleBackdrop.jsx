@@ -9,7 +9,7 @@ export default function SimpleBackdrop({ open }) {
     return (
         <div>
             <Backdrop
-                sx={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1), -5px 0 10px rgba(0, 0, 0, 0.1)', color: 'white', opacity: '0.1', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                sx={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1), -5px 0 10px rgba(0, 0, 0, 0.1)', color: 'white', opacity: '0.9', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={open}
             >
                 <CircularProgress />
