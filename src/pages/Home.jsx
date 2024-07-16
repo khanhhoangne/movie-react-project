@@ -19,9 +19,6 @@ function Home() {
 
   const titleSection = ["Phim mới cập nhật", "Phim hoạt hình", "TV Shows", "Phim lẻ", "Phim bộ"];
 
-  fetch('https://testshop.gameloft.org/saiecom/apis/check_billing_errors.php')
-    .then((res) => res);
-
   const { data: queryLatestData, loading: queryLatestLoading, error: queryLatestError } = useQuery('movies_latest_home', async () => {
     return await httpRequest.get('danh-sach/phim-moi-cap-nhat');
   },{refetchOnWindowFocus: false})
