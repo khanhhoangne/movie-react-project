@@ -32,8 +32,18 @@ function App() {
                 publicRoutes.map((route, index) => {
                   const Layout = BaseLayout
                   const Page = route.component
+                  const authenicationFlag = import.meta.env.VITE_APP_BASE_URL_CDN;
+                  let PageComponent;
+
+                  if(authenicationFlag) {
+                    PageComponent = <Layout><Page /></Layout>;
+                  } else {
+                    PageComponent = <Layout><Page /></Layout>;
+                  }
+
+
                   return (
-                    <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />
+                    <Route key={index} path={route.path} element={PageComponent} />
                   )
                 })
               }

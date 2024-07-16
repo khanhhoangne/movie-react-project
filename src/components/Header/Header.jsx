@@ -16,9 +16,11 @@ import AdbIcon from '@mui/icons-material/Adb';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { TextField } from '@mui/material';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import { signInWithGoogle, signOutUser } from '~/servies/firebase';
+
 
 const pages = [
   {
@@ -27,7 +29,7 @@ const pages = [
   },
   {
     name: "Danh sách của tôi",
-    path: "/404"
+    path: "/favorite"
   },
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -219,6 +221,19 @@ function Header() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton
+              onClick={signInWithGoogle}
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

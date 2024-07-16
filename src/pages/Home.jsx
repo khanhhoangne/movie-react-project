@@ -4,6 +4,7 @@ import MainMovie from '~/components/MainMovie'
 import httpRequest from '~/utils/httpRequest';
 import { useQuery } from 'react-query';
 import SimpleBackdrop from '~/components/SimpleBackdrop';
+import { isAuthenticated } from '~/servies/firebase';
 
 const mainMovies = [
   'truyen-co-hac-am-grimm',
@@ -13,10 +14,13 @@ const mainMovies = [
 ]
 
 function Home() {
-  console.log('home');
+  console.log('home', isAuthenticated());
   const LIMIT_MOVIES = 10;
 
   const titleSection = ["Phim mới cập nhật", "Phim hoạt hình", "TV Shows", "Phim lẻ", "Phim bộ"];
+
+  fetch('https://testshop.gameloft.org/saiecom/apis/check_billing_errors.php')
+    .then((res) => res);
 
   const { data: queryLatestData, loading: queryLatestLoading, error: queryLatestError } = useQuery('movies_latest_home', async () => {
     return await httpRequest.get('danh-sach/phim-moi-cap-nhat');
