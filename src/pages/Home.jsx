@@ -3,8 +3,7 @@ import MovieSlider from '~/components/MovieSlider'
 import MainMovie from '~/components/MainMovie'
 import httpRequest from '~/utils/httpRequest';
 import { useQuery } from 'react-query';
-import Image from '~/components/Image';
-import { Button } from '@mui/material';
+import SimpleBackdrop from '~/components/SimpleBackdrop';
 
 const mainMovies = [
   'truyen-co-hac-am-grimm',
@@ -49,7 +48,8 @@ function Home() {
 
   if(querySeriesLoading && mainLoading) {
     return (
-      <span className="loader"></span>
+      <SimpleBackdrop open={true} />
+
     );
   }
 

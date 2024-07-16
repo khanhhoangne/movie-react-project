@@ -33,9 +33,12 @@ function MovieItem({ movie }) {
                         data = decodeJSON(data.data);
                         setMovieDetail(data);
                     }
+
                     setIsLoading(false);
-                });
+                })
+
         }
+
     }, [slug, isLoading])
 
 
@@ -54,18 +57,13 @@ function MovieItem({ movie }) {
 
     let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
     let imageURL = (movie.poster_url).replace(baseImageURL, "");
-    const linked = 'watch/' + movie.slug;
 
     imageURL = baseImageURL + imageURL;
-    console.log('slug', {
-        slug: slug,
-        isLoading: isLoading
-    });
-    
+
     return (
         <>
-            <SimpleBackdrop open={!movieDetail && slug && isLoading && <span className="loader"></span>} />
-            { slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} /> }
+            <SimpleBackdrop open={!movieDetail && slug && isLoading} />
+            {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
             <div className={cx('item')}>
                 <Image source={imageURL} limitedItems={movie} index={movie._id} />
                 <div className={cx('back')}>

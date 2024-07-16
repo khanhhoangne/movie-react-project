@@ -1,14 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import axios from 'axios';
 import { useQuery } from 'react-query';
 import httpRequest from '~/utils/httpRequest';
 import ScrollableTabs from '~/components/ScrollableTabs';
-import { useLayoutEffect } from 'react';
-import getData from '~/hooks/getData';
 import GridMovie from '~/components/GridMovie';
-import ConvertImage from '~/components/PaginationCustom';
-import SpeedDialMUI from '~/components/SpeedDialMUI';
 import { Box } from '@mui/material';
+import SimpleBackdrop from '~/components/SimpleBackdrop';
 
 const types = [
     {
@@ -147,7 +143,7 @@ function Filter() {
 
     console.log('listResult', listMoviesByFilter);
 
-    const mustBeLoading = (ref.current || isLoading || isRefetching || listMovies.length === 0);
+    const mustBeLoading = (isLoading || isRefetching || listMovies.length === 0);
 
     console.log('mustBeLoading', mustBeLoading);
 
@@ -156,7 +152,8 @@ function Filter() {
             <Box>
                 {<ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />}
             </Box>
-            {mustBeLoading && <span className="loader"></span>}
+            {ref.current && <SimpleBackdrop open={true}/>}
+            {mustBeLoading && <SimpleBackdrop open={true} />}
             {!mustBeLoading && listMovies && listMovies.length > 0 && <GridMovie page={page} data={listMoviesByFilter} limit={20} onHandlePagination={handlePagination} />}
         </>
     )
