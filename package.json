@@ -27,9 +27,11 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.24.0",
     "react-slick": "^0.30.2",
+    "serve": "^14.2.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.11",
-    "swiper": "^11.1.4"
+    "swiper": "^11.1.4",
+    "vite-plugin-singlefile": "^2.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

@@ -11,7 +11,8 @@ const publicRoutes = [
     {path: "/search/:query", component: Search},
     {path: "/watch/:movieSlug", component: Watch},
     {path: "/filter", component: Filter},
-    {path: "favorite", component: Favorite}
+    {path: "/favorite", component: Favorite},
+    {path: "", component: Home}
 ]
 
 const privateRoutes = []

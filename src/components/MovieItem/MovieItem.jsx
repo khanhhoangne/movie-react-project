@@ -69,9 +69,9 @@ function MovieItem({ movie }) {
                 <div className={cx('back')}>
                     <div className={cx('movies-title')}>{movie.name}</div>
                     <div className={cx('movies-info')}>{movie.episode_current}</div>
-                    <Link onClick={handleDialogOver} className={cx('btn-watch-movies-icon')}>
+                    <div onClick={handleDialogOver} className={cx('btn-watch-movies-icon')}>
                         <img className={cx('btn-watch-icon-sizes')} data-slug={movie.slug} src="https://miplayvn.com/img/icon/play-button.png" alt="" />
-                    </Link>
+                    </div>
                 </div>
             </div>
         </>

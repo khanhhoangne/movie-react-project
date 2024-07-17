@@ -60,6 +60,8 @@ function MainMovie({ data }) {
 
               </div>
 
+              <div className={cx('smoke')}></div>
+
               {/* <div className={cx('opacity-background')}>
       
         </div> */}

@@ -7,7 +7,7 @@ import SimpleBackdrop from '~/components/SimpleBackdrop';
 import { isAuthenticated } from '~/servies/firebase';
 
 const mainMovies = [
-  'truyen-co-hac-am-grimm',
+  'fairy-tail-nhiem-vu-100-nam',
   'hanh-tinh-khi-vuong-quoc-moi',
   'cong-ty-quai-vat-2021',
   'gau-pooh-mau-va-mat-2'
@@ -21,33 +21,33 @@ function Home() {
 
   const { data: queryLatestData, loading: queryLatestLoading, error: queryLatestError } = useQuery('movies_latest_home', async () => {
     return await httpRequest.get('danh-sach/phim-moi-cap-nhat');
-  },{refetchOnWindowFocus: false})
+  }, { refetchOnWindowFocus: false })
 
   const { data: queryCartoonData, loading: queryCartoonLoading, error: queryCartoonError } = useQuery('movies_cartoon_home', async () => {
     return await httpRequest.get('v1/api/danh-sach/hoat-hinh');
-  },{refetchOnWindowFocus: false})
+  }, { refetchOnWindowFocus: false })
 
   const { data: queryShowData, loading: queryShowLoading, error: queryShowError } = useQuery('movies_show_home', async () => {
     return await httpRequest.get('v1/api/danh-sach/tv-shows?page=2');
-  },{refetchOnWindowFocus: false})
+  }, { refetchOnWindowFocus: false })
 
   const { data: querySingleData, loading: querySingleLoading, error: querySingleError } = useQuery('movies_single_home', async () => {
     return await httpRequest.get('v1/api/danh-sach/phim-le');
-  },{refetchOnWindowFocus: false})
+  }, { refetchOnWindowFocus: false })
 
   const { data: querySeriesData, isLoading: querySeriesLoading, error: querySeriesError } = useQuery('movies_series_home', async () => {
     return await httpRequest.get('v1/api/danh-sach/phim-bo');
-  },{refetchOnWindowFocus: false})
+  }, { refetchOnWindowFocus: false })
 
   const { data: queryMainData, isLoading: mainLoading } = useQuery('movies_main_home', async () => {
 
     const requests = mainMovies.map(async (page) => await httpRequest.get(`phim/${page}`));
 
     return await Promise.all(requests);
-  },{refetchOnWindowFocus: true})
+  }, { refetchOnWindowFocus: true })
 
 
-  if(querySeriesLoading && mainLoading) {
+  if (querySeriesLoading && mainLoading) {
     return (
       <SimpleBackdrop open={true} />
 
@@ -58,12 +58,14 @@ function Home() {
 
   return (
     <Fragment>
-      <MainMovie data={queryMainData} />
-      <MovieSlider title={titleSection[0]}  data={queryLatestData?.data.items} />
-      <MovieSlider title={titleSection[1]}  data={queryCartoonData?.data.data.items} />
-      <MovieSlider title={titleSection[2]}  data={queryShowData?.data.data.items} />
-      <MovieSlider title={titleSection[3]}  data={querySingleData?.data.data.items} />
-      <MovieSlider title={titleSection[4]}  data={querySeriesData?.data.data.items} />
+      <div className='smoke'>
+        <MainMovie data={queryMainData} />
+        <MovieSlider title={titleSection[0]} data={queryLatestData?.data.items} />
+        <MovieSlider title={titleSection[1]} data={queryCartoonData?.data.data.items} />
+        <MovieSlider title={titleSection[2]} data={queryShowData?.data.data.items} />
+        <MovieSlider title={titleSection[3]} data={querySingleData?.data.data.items} />
+        <MovieSlider title={titleSection[4]} data={querySeriesData?.data.data.items} />
+      </div>
     </Fragment>
   )
 }
