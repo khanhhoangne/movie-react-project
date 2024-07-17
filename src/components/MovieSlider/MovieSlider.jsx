@@ -35,7 +35,7 @@ export default function MovieSlider({ title, data }) {
   imageURL = baseImageURL + imageURL;
   return (
     <>
-      <h2 style={{ color: 'white' }}>{title}</h2>
+      <h2 style={{ color: 'white', letterSpacing: '2px' }}>{title}</h2>
       <Swiper
         onSlideChange={(swiper) => setIndexActive(swiper.activeIndex)}
 
