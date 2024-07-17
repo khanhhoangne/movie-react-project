@@ -9,7 +9,17 @@ import 'swiper/css/pagination';
 const styled = {
   position: 'absolute',
   height: '100%',
-  backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1.5) 80%, rgba(0, 0, 0, 1) 100%)',
+  backgroundImage: 'linear-gradient(to right, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0))',
+  backgroundColor: 'none',
+  width: '100%',
+  top: 0,
+  left: 0
+}
+
+const styledTop = {
+  position: 'absolute',
+  height: '100%',
+  backgroundImage: 'linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 1) 80%)',
   backgroundColor: 'none',
   width: '100%',
   top: 0,
@@ -60,7 +70,8 @@ export default function MovieSlider({ title, data }) {
         className="mySwiper"
         style={{background: `url(${imageURL})`}}
       >
-        <div style={styled}></div>
+        {/* <div style={styledTop}></div> */}
+        <div className='shadows' style={styled}></div>
         {
           data?.map((movie, index) => {
             return (
