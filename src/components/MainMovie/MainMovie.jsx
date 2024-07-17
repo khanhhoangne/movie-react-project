@@ -15,6 +15,7 @@ function MainMovie({ data }) {
 
   console.log('Main', data);
 
+  
   return (
     <Swiper
       slidesPerView={1}

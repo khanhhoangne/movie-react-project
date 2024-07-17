@@ -78,3 +78,9 @@ nav>ul>li>.MuiPaginationItem-root, nav>.MuiPaginationItem-icon, nav>.MuiButtonBa
 a{
   color: white!important;
 }
+
+.mySwiper {
+  background-size: cover!important; /* Ensure the image covers the container */
+  background-position: center!important; /* Center the image */
+  background-repeat: no-repeat!important; /* Prevent the image from repeating */
+}
