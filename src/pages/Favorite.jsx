@@ -1,9 +1,10 @@
 import React from 'react'
+import Button from '~/components/Button'
 
 function Favorite() {
   return (
     <div>
-        Favorite Page
+      Favorite Page
     </div>
   )
 }

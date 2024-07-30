@@ -15,7 +15,7 @@ function MainMovie({ data }) {
 
   console.log('Main', data);
 
-  
+
   return (
     <Swiper
       slidesPerView={1}
@@ -42,9 +42,12 @@ function MainMovie({ data }) {
     >
       {
         data?.map((movie, index) => {
+
+          let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
+          let imageURL = (movie.data.movie.thumb_url).replace('https://phimimg.com/', baseImageURL);
           return (
             <SwiperSlide key={index} className={cx('img-item')}>
-              <img className={cx('img-item-slide')} width="100%" src={movie.data.movie.thumb_url} />
+              <img className={cx('img-item-slide')} width="100%" src={imageURL} />
 
               <div className={cx('opacity-background')}>
                 <div className={cx('item-des', 'top-down')} >

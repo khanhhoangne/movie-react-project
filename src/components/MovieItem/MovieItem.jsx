@@ -56,7 +56,7 @@ function MovieItem({ movie }) {
 
 
     let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
-    let imageURL = (movie.poster_url).replace(baseImageURL, "");
+    let imageURL = (movie.poster_url).replace('https://phimimg.com/', '');
 
     imageURL = baseImageURL + imageURL;
 

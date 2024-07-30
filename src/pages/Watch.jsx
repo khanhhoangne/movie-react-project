@@ -43,7 +43,6 @@ function Watch() {
     }
 
 
-
     if (!data.data.status) {
         return <h2 style={{ color: 'white' }}>{data.data.msg}</h2>;
     }

@@ -54,6 +54,10 @@ export default React.memo(function DialogMUI({ handleDialogExit, dataMovie }) {
 
   const linked = '/watch/' + dataMovie.movie.slug;
 
+  let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
+  let imageURL = (dataMovie.movie.thumb_url).replace('https://phimimg.com/', baseImageURL);
+
+
   const DialogComponent = () => (
     <Dialog
       open={true}
@@ -77,7 +81,7 @@ export default React.memo(function DialogMUI({ handleDialogExit, dataMovie }) {
 
       <DialogContentText onMouseLeave={handleDialogExit}>
         <div className={cx('img-item')}>
-          <img className={cx('img-item-slide')} width="100%" height="100%" src={dataMovie.movie.thumb_url} />
+          <img className={cx('img-item-slide')} width="100%" height="100%" src={imageURL} />
         </div>
 
         <div className={cx('opacity-background')}>

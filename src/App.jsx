@@ -36,8 +36,6 @@ function App() {
                   const authenicationFlag = import.meta.env.VITE_APP_BASE_URL_CDN;
                   let PageComponent;
 
-                  
-
                   if(authenicationFlag) {
                     PageComponent = <Layout><Page /></Layout>;
                   } else {
