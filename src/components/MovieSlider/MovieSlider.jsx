@@ -27,17 +27,10 @@ const styledTop = {
 }
 
 export default function MovieSlider({ title, data }) {
-  const [indexActive, setIndexActive] = React.useState(0);
-
-  let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
-  let imageURL = (data?.at(indexActive)?.thumb_url ?? '').replace(baseImageURL, "");
-
-  imageURL = baseImageURL + imageURL;
   return (
     <>
       <h2 style={{ color: 'white', letterSpacing: '2px' }}>{title}</h2>
       <Swiper
-        onSlideChange={(swiper) => setIndexActive(swiper.activeIndex)}
 
         slidesPerView={1}
         spaceBetween={10}
@@ -68,7 +61,6 @@ export default function MovieSlider({ title, data }) {
         }}
         modules={[Pagination]}
         className="mySwiper"
-        style={{background: `url(${imageURL})`}}
       >
         {/* <div style={styledTop}></div> */}
         <div className='shadows' style={styled}></div>

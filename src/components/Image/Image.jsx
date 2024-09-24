@@ -15,13 +15,12 @@ export default function Image({ source, limitedItems, index }) {
         });
     };
 
-
     return (
         <>
             <img
                 className={cx('img-item')}
-                style={{ objectFit: !imageLoaded[index] ? '' : 'cover' }}  
-                src={!imageLoaded[index] ? 'https://imgur.com/ikQanUS.gif' : source}
+                style={{ objectFit: !imageLoaded[index] ? '' : 'cover' }}
+                src={!imageLoaded[index] ? 'https://cdn.dribbble.com/users/1053052/screenshots/3600670/media/049491d00605f54d441aa47b9b419910.gif' : source}
                 onLoad={() => handleImageLoad(index)}
             />
         </>
