@@ -48,11 +48,11 @@ export default function MovieSlider({ title, data }) {
           },
           768: {
             slidesPerView: 4,
-            spaceBetween: 40,
+            spaceBetween: 10,
           },
           1024: {
             slidesPerView: 6,
-            spaceBetween: 20,
+            spaceBetween: 40,
           },
           1920: {
             slidesPerView: 7,

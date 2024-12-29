@@ -85,3 +85,31 @@ a{
   background-repeat: no-repeat!important; /* Prevent the image from repeating */
 }
 
+
+
+.snowflake {
+  position: absolute;
+  top: -10px; /* Start slightly above the viewport */
+  left: 0; /* Horizontal position will be randomized in JavaScript */
+  background: white;
+  border-radius: 50%; /* Make it circular */
+  opacity: 0.8; /* Slight transparency */
+  pointer-events: none; /* Ensure it doesn't block clicks */
+  animation: fall linear infinite, sway ease-in-out infinite;
+  z-index: 2;
+
+  /* Add glowing effect */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), /* Outer glow */
+              0 0 15px rgba(255, 255, 255, 0.5); /* Softer spread glow */
+}
+
+
+
+@keyframes fall {
+  0% {
+    transform: translateY(0); /* Start at the top */
+  }
+  100% {
+    transform: translateY(100vh); /* Fall to the bottom */
+  }
+}

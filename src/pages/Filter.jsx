@@ -38,7 +38,7 @@ function Filter() {
         }
     }, [page, movieType]);
 
-    const { data, isLoading, refetch, isRefetching } = useQuery(
+    const { data, isLoading, refetch, isRefetching, isFetching } = useQuery(
         ['movies_all', movieType, page],
         async () => {
             const url =
@@ -88,7 +88,7 @@ function Filter() {
             <Box>
                 <ScrollableTabs onChangeMovieType={handleChangeMovieType} types={types} />
             </Box>
-            {isRefetching && ref.current && <SimpleBackdrop open={true} />}
+            {(isFetching || (isRefetching && ref.current)) && <SimpleBackdrop open={true} />}
             {data?.items.length > 0 && (
                 <GridMovie
                     page={page}

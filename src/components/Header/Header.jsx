@@ -114,7 +114,7 @@ function Header() {
   return (
 
     <AppBar position="fixed" sx={{
-      backgroundColor: "#1f1e1e", zIndex: "9999999999"
+      backgroundColor: "#121010", zIndex: "9999999999"
     }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>

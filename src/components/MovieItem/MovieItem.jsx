@@ -11,6 +11,7 @@ import SimpleBackdrop from '~/components/SimpleBackdrop';
 import Image from '~/components/Image';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { IconButton } from '@mui/material';
+import zIndex from '@mui/material/styles/zIndex';
 
 
 const cx = classNames.bind(styles);

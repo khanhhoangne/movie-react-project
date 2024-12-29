@@ -7,7 +7,7 @@ import SimpleBackdrop from '~/components/SimpleBackdrop';
 import { isAuthenticated } from '~/servies/firebase';
 
 const mainMovies = [
-  'blue-box',
+  'nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca',
   'dau-bep-phan-3',
   'cong-ty-quai-vat-2021',
   'gau-pooh-mau-va-mat-2'

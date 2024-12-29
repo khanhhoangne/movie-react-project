@@ -8,74 +8,77 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
+import Snowfall from '../Snowfall';
+
 
 const cx = classNames.bind(styles);
 
 function MainMovie({ data }) {
 
-  console.log('Main', data);
-
-
   return (
-    <Swiper
-      slidesPerView={1}
-      spaceBetween={10}
-      pagination={{
-        clickable: true,
-      }}
-      breakpoints={{
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 1,
-          spaceBetween: 40,
-        },
-        1024: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-        },
-      }}
-      modules={[Pagination]}
-      className="mySwiper"
-    >
-      {
-        data?.map((movie, index) => {
-
-          let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
-          let imageURL = (movie.data.movie.thumb_url).replace('https://phimimg.com/', baseImageURL);
-          return (
-            <SwiperSlide key={index} className={cx('img-item')}>
-              <img className={cx('img-item-slide')} width="100%" src={imageURL} />
-
-              <div className={cx('opacity-background')}>
-                <div className={cx('item-des', 'top-down')} >
-                  <h2 className={cx('item-tilte')}>
-                    {movie.data.movie.origin_name}
-                  </h2>
-                  <div className={cx('btn-1')}>
-                    <Link to={`/watch/${movie.data.movie.slug}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LiveTvIcon /> <span style={{ marginLeft: '9px' }}>Xem Ngay</span></Link>
-                  </div>
-                  <div>
-                    {movie.data.movie.content}
+    <div>
+      <Snowfall />
+      <div className={cx('main-movie-container')}>
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          pagination={{
+            clickable: true,
+          }}
+          breakpoints={{
+            640: { slidesPerView: 1, spaceBetween: 20 },
+            768: { slidesPerView: 1, spaceBetween: 40 },
+            1024: { slidesPerView: 1, spaceBetween: 20 },
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          {data?.map((movie, index) => {
+            let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
+            let imageURL = movie.data.movie.thumb_url.replace(
+              'https://phimimg.com/',
+              baseImageURL
+            );
+            return (
+              <SwiperSlide key={index} className={cx('img-item')}>
+                <img
+                  className={cx('img-item-slide')}
+                  width="100%"
+                  src={imageURL}
+                  alt={movie.data.movie.origin_name}
+                />
+                <div className={cx('opacity-background')}>
+                  <div className={cx('item-des', 'top-down')}>
+                    <h2 className={cx('item-tilte')}>
+                      {movie.data.movie.origin_name}
+                    </h2>
+                    <div className={cx('btn-1')}>
+                      <Link
+                        to={`/watch/${movie.data.movie.slug}`}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <LiveTvIcon />
+                        <span style={{ marginLeft: '9px' }}>Xem Ngay</span>
+                      </Link>
+                    </div>
+                    <div>{movie.data.movie.content}</div>
                   </div>
                 </div>
+                <div className={cx('smoke')}></div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+    </div>
 
-              </div>
-
-              <div className={cx('smoke')}></div>
-
-              {/* <div className={cx('opacity-background')}>
-      
-        </div> */}
-            </SwiperSlide>
-          )
-        })
-      }
-    </Swiper>
-
-  )
+  );
 }
 
-export default MainMovie
+export default MainMovie;
+
+
