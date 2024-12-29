@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-export default function Image({ source, limitedItems, index }) {
+export default function Image({ source, limitedItems, index, sx }) {
     const [imageLoaded, setImageLoaded] = useState(Array(limitedItems).fill(false));
 
     const handleImageLoad = (index) => {
@@ -20,7 +20,7 @@ export default function Image({ source, limitedItems, index }) {
         <>
             <img
                 className={cx('img-item')}
-                style={{ objectFit: !imageLoaded[index] ? '' : 'cover' }}
+                style={{ objectFit: !imageLoaded[index] ? '' : 'cover', ...sx }}
                 src={!imageLoaded[index] ? 'https://i.redd.it/ubbi1p7z7euc1.gif' :  source}
                 onLoad={() => handleImageLoad(index)}
                 loading="lazy"

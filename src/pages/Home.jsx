@@ -5,6 +5,7 @@ import httpRequest from '~/utils/httpRequest';
 import { useQuery } from 'react-query';
 import SimpleBackdrop from '~/components/SimpleBackdrop';
 import { isAuthenticated } from '~/servies/firebase';
+import Banner from '~/components/Banner';
 
 const mainMovies = [
   'nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca',
@@ -66,6 +67,10 @@ function Home() {
       <div className='smoke'>
         <MainMovie data={queryMainData} />
         <MovieSlider title={titleSection[0]} data={queryLatestData?.data.items} />
+
+        <Banner/>
+
+
         <MovieSlider title={titleSection[1]} data={queryCartoonData?.data.data.items} />
         <MovieSlider title={titleSection[2]} data={queryShowData?.data.data.items} />
         <MovieSlider title={titleSection[3]} data={querySingleData?.data.data.items} />
