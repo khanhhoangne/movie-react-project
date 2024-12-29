@@ -33,7 +33,7 @@ export default function MovieSlider({ title, data }) {
       <Swiper
 
         slidesPerView={1}
-        spaceBetween={10}
+        spaceBetween={0}
         pagination={{
           clickable: true,
         }}
