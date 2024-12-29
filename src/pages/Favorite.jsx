@@ -13,7 +13,7 @@ function Favorite() {
   const { movies } = useAppContext();
   console.log('getMovie', movies);
 
-  if (!movies) {
+  if (!movies || movies.length == 0) {
     return (
       <>
         <h2 style={{ color: 'white' }}>Danh sách đang trống, hãy lưu bất kì bộ nào bạn muốn và trở lại đây nhé!</h2>
