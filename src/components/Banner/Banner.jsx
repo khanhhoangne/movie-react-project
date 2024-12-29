@@ -26,7 +26,7 @@ function Banner() {
     imageURL = baseImageURL + imageURL;
 
     return (
-        <>
+        <div>
             <div className={cx('item')}>
                 <Image sx={{ borderRadius: '25px', objectFit: 'fill' }} source={imageURL} limitedItems={movie} index={movie._id} />
 
@@ -69,7 +69,7 @@ function Banner() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
 
     )
 }

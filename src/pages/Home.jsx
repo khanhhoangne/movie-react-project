@@ -69,8 +69,7 @@ function Home() {
         <MovieSlider title={titleSection[0]} data={queryLatestData?.data.items} />
 
         <Banner/>
-
-
+        <br />
         <MovieSlider title={titleSection[1]} data={queryCartoonData?.data.data.items} />
         <MovieSlider title={titleSection[2]} data={queryShowData?.data.data.items} />
         <MovieSlider title={titleSection[3]} data={querySingleData?.data.data.items} />
