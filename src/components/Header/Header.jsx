@@ -80,7 +80,20 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchValue, setSearchValue] = React.useState('');
+  const [scrolled, setScrolled] = React.useState(false); // State to track scroll position
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50); // Update state based on scroll position
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll); // Cleanup
+    };
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -104,18 +117,23 @@ function Header() {
       setSearchValue('');
       queryClient.clear();
     }
-  }
+  };
 
   const handleOnclick = () => {
     setSearchValue('');
     navigate('/');
-  }
+  };
 
   return (
-
-    <AppBar position="fixed" sx={{
-      backgroundColor: "#121010", zIndex: "9999999999"
-    }}>
+    <AppBar
+      position="fixed"
+      sx={{
+        backgroundColor: scrolled ? "#121010" : "transparent", // Change background dynamically
+        boxShadow: scrolled ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none', // Optional box-shadow effect
+        transition: 'background-color 0.3s ease, box-shadow 0.3s ease', // Smooth transition
+        zIndex: 9999999999,
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -133,12 +151,13 @@ function Header() {
               letterSpacing: '.3rem',
               color: 'white!important',
               textDecoration: 'none',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             KQ
           </Typography>
 
+          {/* Mobile Navigation */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -177,13 +196,13 @@ function Header() {
               ))}
             </Menu>
           </Box>
+
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Link to='/'>
+          <Link to="/">
             <Typography
               variant="h5"
               noWrap
               component="a"
-
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -198,18 +217,26 @@ function Header() {
               KQ
             </Typography>
           </Link>
+
+          {/* Desktop Navigation */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link key={page.name} to={page.path}>
                 <Button
-                  sx={{ my: 2, color: 'white', display: 'block', fontWeight: page.path === useLocation().pathname ? 'bold' : '500' }}
+                  sx={{
+                    my: 2,
+                    color: 'white',
+                    display: 'block',
+                    fontWeight: page.path === useLocation().pathname ? 'bold' : '500',
+                  }}
                 >
                   {page.name}
                 </Button>
               </Link>
             ))}
           </Box>
-          <Search >
+
+          <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -221,11 +248,11 @@ function Header() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-
-         
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
 export default Header;
+
