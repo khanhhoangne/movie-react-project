@@ -1,11 +1,42 @@
-const setLocalStorageWithExpiration = (key, value, expirationMinutes) => {
+const setLocalStorageWithExpiration = (key, newValue, expirationMinutes = 60) => {
     const now = new Date();
+    const existingItemStr = localStorage.getItem(key);
+
+    let existingValue = [];
+    if (existingItemStr) {
+        try {
+            const existingItem = JSON.parse(existingItemStr);
+            // Ensure the existing value is still valid and within its expiration
+            if (now.getTime() <= existingItem.expiration) {
+                existingValue = Array.isArray(existingItem.value) ? existingItem.value : [existingItem.value];
+            }
+        } catch (error) {
+            console.error("Failed to parse existing localStorage item:", error);
+        }
+    }
+
+    // Remove duplicate entry if it exists
+    const updatedValue = existingValue.filter(item => item._id !== newValue._id);
+
+    const isExisting = existingValue.some(item => item._id === newValue._id);
+
+    
+
+    // Add the new value to the array
+
+    if(!isExisting) {
+        updatedValue.push(newValue);
+    }
+
     const item = {
-        value: value,
-        expiration: now.getTime() + expirationMinutes * 60 * 1000
+        value: updatedValue,
+        expiration: now.getTime() + expirationMinutes * 60 * 1000,
     };
+
     localStorage.setItem(key, JSON.stringify(item));
 };
+
+
 
 const getLocalStorageWithExpiration = (key) => {
     const itemStr = localStorage.getItem(key);
@@ -21,6 +52,7 @@ const getLocalStorageWithExpiration = (key) => {
         }
         return item.value;
     } catch (error) {
+        console.error("Failed to parse localStorage item:", error);
         return null;
     }
 };
@@ -28,4 +60,4 @@ const getLocalStorageWithExpiration = (key) => {
 export {
     setLocalStorageWithExpiration,
     getLocalStorageWithExpiration
-}
+};

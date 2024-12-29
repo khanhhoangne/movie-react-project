@@ -9,6 +9,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import SimpleBackdrop from '~/components/SimpleBackdrop';
 import Image from '~/components/Image';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import { IconButton } from '@mui/material';
+
 
 const cx = classNames.bind(styles);
 
@@ -43,11 +46,9 @@ function MovieItem({ movie }) {
 
 
 
-    const handleDialogOver = (e) => {
-        const element = e.target;
-        const slugData = element.getAttribute("data-slug");
+    const handleDialogOver = (slug) => {
         setIsLoading(true);
-        setSlug(slugData);
+        setSlug(slug);
     }
 
     const handleDialogExit = (e) => {
@@ -63,14 +64,16 @@ function MovieItem({ movie }) {
     return (
         <>
             <SimpleBackdrop open={!movieDetail && slug && isLoading} />
-            {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} dataMovie={movieDetail} />}
+            {slug && movieDetail && <DialogMUI handleDialogExit={handleDialogExit} movie={movie} dataMovie={movieDetail} />}
             <div className={cx('item')}>
                 <Image source={imageURL} limitedItems={movie} index={movie._id} />
                 <div className={cx('back')}>
                     <div className={cx('movies-title')}>{movie.name}</div>
                     <div className={cx('movies-info')}>{movie.episode_current}</div>
-                    <div onClick={handleDialogOver} className={cx('btn-watch-movies-icon')}>
-                        <img className={cx('btn-watch-icon-sizes')} data-slug={movie.slug} src="https://miplayvn.com/img/icon/play-button.png" alt="" />
+                    <div className={cx('btn-watch-movies-icon')}>
+                        <IconButton onClick={()=> handleDialogOver(movie.slug)} >    
+                            <PlayCircleIcon sx={{ color: 'white', fontSize:'35px' }} />
+                        </IconButton>
                     </div>
                 </div>
             </div>

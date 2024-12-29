@@ -14,40 +14,71 @@ import { Chip, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite'; // Import filled heart icon
+import { getLocalStorageWithExpiration, setLocalStorageWithExpiration } from '~/utils/localStorageUtils';
+import { useAppContext } from '~/contexts/AppContext';
 
 const cx = classNames.bind(styles);
 
 function checkDeviceType() {
   const width = window.innerWidth;
   if (width <= 768) {
-      return 'mobile';
+    return 'mobile';
   } else {
-      return 'desktop';
+    return 'desktop';
   }
 }
 
-function PaperComponent(props) {
-  console.log(props);
-  return (
-    <Draggable
-      handle="#draggable-dialog-title"
-      cancel={'[class*="MuiDialogContent-root"]'}
+const PaperComponent = React.memo((props) => (
+  <Draggable
+    handle="#draggable-dialog-title"
+    cancel={'[class*="MuiDialogContent-root"]'}
+  >
+    <Paper
+      {...props}
+      sx={{
+        zIndex: 999999999999,
+        minWidth: checkDeviceType() === 'desktop' ? '900px' : 'unset',
+        background:
+          'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)',
+      }}
+    />
+  </Draggable>
+));
 
-    >
-      <Paper {...props} sx={{ zIndex: 999999999999, minWidth: checkDeviceType() === 'desktop' ? '900px' : 'unset', background: 'linear-gradient(57deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }} />
-    </Draggable>
-  );
-}
 
 
 
 
-export default React.memo(function DialogMUI({ handleDialogExit, dataMovie }) {
-  const [open, setOpen] = React.useState(false);
+export default React.memo(function DialogMUI({ handleDialogExit, dataMovie, movie }) {
+  console.log(movie._id);
+  
+  const initialFavoritedState = React.useMemo(() => {
+    const favorites = getLocalStorageWithExpiration('movies_favorite') || [];
+    return favorites.some((fav) => fav._id === movie._id);
+  }, [movie]);
 
-  const handleClose = () => {
-    setOpen(false);
+  const isFirstRender = React.useRef(true);
+
+  React.useEffect(() => {
+    
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // Skip the first render
+    }
+
+    handleDialogExit();
+  }, [movie])
+
+  const { setMovies } = useAppContext();
+
+  const [isFavorited, setIsFavorited] = React.useState(initialFavoritedState);
+
+  const handleFavoriteToggle = () => {
+    setLocalStorageWithExpiration('movies_favorite', movie);
+    setIsFavorited(!isFavorited);
+    setMovies(getLocalStorageWithExpiration('movies_favorite') || []);
   };
 
   console.log('dialog');
@@ -57,27 +88,26 @@ export default React.memo(function DialogMUI({ handleDialogExit, dataMovie }) {
   let baseImageURL = import.meta.env.VITE_APP_BASE_URL_CDN;
   let imageURL = (dataMovie.movie.thumb_url).replace('https://phimimg.com/', baseImageURL);
 
-
-  const DialogComponent = () => (
+  return (
     <Dialog
       open={true}
       PaperComponent={PaperComponent}
       aria-labelledby="draggable-dialog-title"
       sx={{ background: 'linear-gradient(192deg, transparent, rgba(0, 0, 0, 0), #221d1d), linear-gradient(141deg, transparent, rgba(0, 0, 0, 0), #131212)' }}
     >
-        <IconButton
-          aria-label="close"
-          onClick={handleDialogExit}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            zIndex: 5,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+      <IconButton
+        aria-label="close"
+        onClick={handleDialogExit}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+          zIndex: 5,
+          color: (theme) => theme.palette.grey[500],
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
 
       <DialogContentText onMouseLeave={handleDialogExit}>
         <div className={cx('img-item')}>
@@ -102,9 +132,21 @@ export default React.memo(function DialogMUI({ handleDialogExit, dataMovie }) {
                 }
               </div >
             </h2>
-            <div className={cx('btn-1')}>
-              <Link to={linked} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LiveTvIcon /> <span style={{ marginLeft: '9px' }}>Xem Ngay</span></Link>
+            <div style={{ display: 'flex', gap: 15 }}>
+              <div className={cx('btn-1')}>
+                <Link to={linked} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LiveTvIcon /> <span style={{ marginLeft: '9px' }}>Xem Ngay</span></Link>
+              </div>
+              <div className={cx('btn-1', 'save-movies')}>
+                <Link onClick={handleFavoriteToggle} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {
+                    isFavorited
+                      ? <><FavoriteIcon /> <span style={{ marginLeft: '9px' }}>Bỏ Lưu Phim</span></>
+                      : <><FavoriteBorderIcon /> <span style={{ marginLeft: '9px' }}>Lưu Phim</span></>
+                  }
+                </Link>
+              </div>
             </div>
+
             <div>
               {dataMovie.movie.content}
             </div>
@@ -123,11 +165,5 @@ export default React.memo(function DialogMUI({ handleDialogExit, dataMovie }) {
       </DialogContentText>
 
     </Dialog>
-  )
-
-  return (
-    <React.Fragment>
-      <DialogComponent />
-    </React.Fragment>
   );
 })

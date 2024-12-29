@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import MovieItem from '~/components/MovieItem';
 
-function GridMovie({ page, data, limit, onHandlePagination, result }) {
+function GridMovie({ page, data, limit, onHandlePagination, result, total }) {
+  console.log('grid');
+  
 
-  const limitedItems = data.slice((page - 1) * limit, (page - 1) * limit + limit);
+  const limitedItems = data;
 
   const divideAndRoundUpIfGreaterThanOne = (dividend, divisor) => {
     let result = dividend / divisor;
@@ -14,6 +16,9 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
     }
     return result;
   }
+
+  // Calculate the total number of pages
+  const totalPages = divideAndRoundUpIfGreaterThanOne(total, limit);
 
   return (
     <>
@@ -29,11 +34,22 @@ function GridMovie({ page, data, limit, onHandlePagination, result }) {
           })
         }
       </Grid>
-      <div>
-        <Pagination variant="outlined" shape="rounded" page={page} onClick={onHandlePagination} sx={{ display: 'ruby-text', marginTop: '20px', color: 'white' }} count={divideAndRoundUpIfGreaterThanOne(data.length, limit)} color="primary" />
-      </div>
+      {/* Conditionally render pagination if more than one page */}
+      {totalPages > 1 && (
+        <div>
+          <Pagination
+            variant="outlined"
+            shape="rounded"
+            page={page}
+            onClick={onHandlePagination}
+            sx={{ display: 'ruby-text', marginTop: '20px', color: 'white' }}
+            count={totalPages}
+            color="primary"
+          />
+        </div>
+      )}
     </>
   )
 }
 
-export default GridMovie
+export default GridMovie;

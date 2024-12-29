@@ -7,8 +7,8 @@ import SimpleBackdrop from '~/components/SimpleBackdrop';
 import { isAuthenticated } from '~/servies/firebase';
 
 const mainMovies = [
-  'fairy-tail-nhiem-vu-100-nam',
-  'hanh-tinh-khi-vuong-quoc-moi',
+  'blue-box',
+  'dau-bep-phan-3',
   'cong-ty-quai-vat-2021',
   'gau-pooh-mau-va-mat-2'
 ]
@@ -47,11 +47,16 @@ function Home() {
   }, { refetchOnWindowFocus: true })
 
 
-  if (querySeriesLoading && mainLoading) {
-    return (
-      <SimpleBackdrop open={true} />
+  const isLoading =
+    queryLatestLoading ||
+    queryCartoonLoading ||
+    queryShowLoading ||
+    querySingleLoading ||
+    querySeriesLoading ||
+    mainLoading;
 
-    );
+  if (isLoading) {
+    return <SimpleBackdrop open={true} />;
   }
 
   console.log('main', queryMainData);

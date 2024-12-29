@@ -114,7 +114,7 @@ function Header() {
   return (
 
     <AppBar position="fixed" sx={{
-      backgroundColor: "black", zIndex: "9999999999"
+      backgroundColor: "#1f1e1e", zIndex: "9999999999"
     }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -222,18 +222,7 @@ function Header() {
             />
           </Search>
 
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton
-              onClick={signInWithGoogle}
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
+         
         </Toolbar>
       </Container>
     </AppBar>

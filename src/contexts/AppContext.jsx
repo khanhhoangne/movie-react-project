@@ -1,20 +1,29 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { getLocalStorageWithExpiration } from "~/utils/localStorageUtils";
 
-
+// Create the context
 const AppContext = createContext();
 
+// Provider component
+const AppProvider = ({ children }) => {
 
-const AppProvider = ({ children })  => {
-    const theme = "light";
+    const [movies, setMovies] = useState(() => {
+        const storedMovies = getLocalStorageWithExpiration('movies_favorite');
+        return storedMovies;
+    });
+
+  
+
     const value = {
-        theme
-    }
+        setMovies,
+        movies
+    };
 
-    return (
-        <AppContext.Provider value={value}>
-            { children }
-        </AppContext.Provider>
-    ) 
-}
+    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
 
-export { AppContext, AppProvider }
+const useAppContext = () => {
+    return useContext(AppContext);
+};
+
+export { AppContext, AppProvider, useAppContext };

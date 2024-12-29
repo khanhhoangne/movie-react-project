@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import styles from './Image.module.scss';
 import classNames from 'classnames/bind';
+
 
 const cx = classNames.bind(styles);
 
@@ -20,9 +21,11 @@ export default function Image({ source, limitedItems, index }) {
             <img
                 className={cx('img-item')}
                 style={{ objectFit: !imageLoaded[index] ? '' : 'cover' }}
-                src={!imageLoaded[index] ? 'https://cdn.dribbble.com/users/1053052/screenshots/3600670/media/049491d00605f54d441aa47b9b419910.gif' : source}
+                src={!imageLoaded[index] ? 'https://i.redd.it/ubbi1p7z7euc1.gif' :  source}
                 onLoad={() => handleImageLoad(index)}
+                loading="lazy"
+                alt={`Image ${index}`}
             />
         </>
-    )
+    );
 }
