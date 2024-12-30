@@ -7,6 +7,7 @@ import VerticalTabs from '~/components/VerticalTabs';
 import Pagination from '@mui/material/Pagination';
 import PaginationCustom from '~/components/PaginationCustom';
 import decodeJSON from '~/utils/decodeJSON';
+import DownloadVideo from '~/components/DownloadVideo';
 
 function Watch() {
     const [episode, setEpisode] = useState(null);
@@ -81,8 +82,10 @@ function Watch() {
                 />
                 {
                     !hiddenScrollTab && <PaginationCustom current={episode} handleChangeEpisode={handleChangeEpisode} episodes={data?.data.episodes[0].server_data} />
-
                 }
+
+
+                <DownloadVideo source={linkEmbed} />
 
             </div>
         )

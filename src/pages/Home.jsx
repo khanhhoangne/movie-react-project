@@ -14,9 +14,19 @@ const mainMovies = [
   'gau-pooh-mau-va-mat-2'
 ]
 
+
+const bannerMovies = [
+  'cau-be-rung-xanh-1999',
+  'tro-choi-sat-nhan',
+  'tro-choi-con-muc-phan-2',
+  'thanh-guom-diet-quy-dai-tru-dac-huan'
+]
+
+const LIMIT_MOVIES = 15;
+
+
 function Home() {
-  console.log('home', isAuthenticated());
-  const LIMIT_MOVIES = 10;
+  
 
   const titleSection = ["Phim mới cập nhật", "Phim hoạt hình", "TV Shows", "Phim lẻ", "Phim bộ"];
 
@@ -47,6 +57,15 @@ function Home() {
     return await Promise.all(requests);
   }, { refetchOnWindowFocus: true })
 
+  const { data: randomMovieData, isLoading: randomMovieLoading } = useQuery(
+    'random_movie', 
+    async () => {
+      const randomMovie = bannerMovies[Math.floor(Math.random() * bannerMovies.length)];
+      return await httpRequest.get(`phim/${randomMovie}`);
+    },
+    { refetchOnWindowFocus: false }
+  );  
+
 
   const isLoading =
     queryLatestLoading ||
@@ -54,13 +73,15 @@ function Home() {
     queryShowLoading ||
     querySingleLoading ||
     querySeriesLoading ||
-    mainLoading;
+    mainLoading ||
+    randomMovieLoading;
 
   if (isLoading) {
     return <SimpleBackdrop open={true} />;
   }
 
-  console.log('main', queryMainData);
+  console.log('randomMovieData', randomMovieData.data.movie);
+  
 
   return (
     <Fragment>
@@ -68,8 +89,8 @@ function Home() {
         <MainMovie data={queryMainData} />
         <MovieSlider title={titleSection[0]} data={queryLatestData?.data.items} />
 
-        <Banner/>
-        <br />
+        <Banner movie={randomMovieData.data.movie} />
+      
         <MovieSlider title={titleSection[1]} data={queryCartoonData?.data.data.items} />
         <MovieSlider title={titleSection[2]} data={queryShowData?.data.data.items} />
         <MovieSlider title={titleSection[3]} data={querySingleData?.data.data.items} />
