@@ -85,7 +85,7 @@ function Watch() {
                 }
 
 
-                <DownloadVideo source={linkEmbed} />
+                {/* <DownloadVideo source={linkEmbed} /> */}
 
             </div>
         )
