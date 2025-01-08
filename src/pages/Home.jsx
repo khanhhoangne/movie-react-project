@@ -16,17 +16,19 @@ const mainMovies = [
 
 
 const bannerMovies = [
-  'cau-be-rung-xanh-1999',
+  'xu-so-cac-nguyen-to',
   'tro-choi-sat-nhan',
   'tro-choi-con-muc-phan-2',
-  'thanh-guom-diet-quy-dai-tru-dac-huan'
+  'hanh-trinh-cua-moana-2'
 ]
 
 const LIMIT_MOVIES = 15;
 
 
 function Home() {
-  
+
+  document.title = 'Home';
+
 
   const titleSection = ["Phim mới cập nhật", "Phim hoạt hình", "TV Shows", "Phim lẻ", "Phim bộ"];
 
@@ -58,13 +60,13 @@ function Home() {
   }, { refetchOnWindowFocus: true })
 
   const { data: randomMovieData, isLoading: randomMovieLoading } = useQuery(
-    'random_movie', 
+    'random_movie',
     async () => {
       const randomMovie = bannerMovies[Math.floor(Math.random() * bannerMovies.length)];
       return await httpRequest.get(`phim/${randomMovie}`);
     },
     { refetchOnWindowFocus: false }
-  );  
+  );
 
 
   const isLoading =
@@ -81,20 +83,46 @@ function Home() {
   }
 
   console.log('randomMovieData', randomMovieData.data.movie);
-  
+
 
   return (
     <Fragment>
       <div className='smoke'>
         <MainMovie data={queryMainData} />
-        <MovieSlider title={titleSection[0]} data={queryLatestData?.data.items} />
+
+        <MovieSlider
+          title={titleSection[0]}
+          data={queryLatestData?.data.items}
+          prevButtonClass="swiper-button-prev-latest"
+          nextButtonClass="swiper-button-next-latest"
+        />
 
         <Banner movie={randomMovieData.data.movie} />
-      
-        <MovieSlider title={titleSection[1]} data={queryCartoonData?.data.data.items} />
-        <MovieSlider title={titleSection[2]} data={queryShowData?.data.data.items} />
-        <MovieSlider title={titleSection[3]} data={querySingleData?.data.data.items} />
-        <MovieSlider title={titleSection[4]} data={querySeriesData?.data.data.items} />
+
+        <MovieSlider
+          title={titleSection[1]}
+          data={queryCartoonData?.data.data.items}
+          prevButtonClass="swiper-button-prev-cartoon"
+          nextButtonClass="swiper-button-next-cartoon"
+        />
+        <MovieSlider
+          title={titleSection[2]}
+          data={queryShowData?.data.data.items}
+          prevButtonClass="swiper-button-prev-show"
+          nextButtonClass="swiper-button-next-show"
+        />
+        <MovieSlider
+          title={titleSection[3]}
+          data={querySingleData?.data.data.items}
+          prevButtonClass="swiper-button-prev-single"
+          nextButtonClass="swiper-button-next-single"
+        />
+        <MovieSlider
+          title={titleSection[4]}
+          data={querySeriesData?.data.data.items}
+          prevButtonClass="swiper-button-prev-series"
+          nextButtonClass="swiper-button-next-series"
+        />
       </div>
     </Fragment>
   )

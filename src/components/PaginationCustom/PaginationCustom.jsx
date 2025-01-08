@@ -1,7 +1,6 @@
 import * as React from 'react';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import { useState } from 'react';
+import { Button, Stack } from '@mui/material';
+import { Padding } from '@mui/icons-material';
 
 const PaginationCustom = ({ episodes, current, handleChangeEpisode }) => {
     const currentEpisode = current ?? episodes[0].slug;
@@ -18,25 +17,83 @@ const PaginationCustom = ({ episodes, current, handleChangeEpisode }) => {
 
     const episodesToShow = episodes.slice(startIdx, endIdx + 1);
 
+    const buttonStyle = {
+        textTransform: 'none',
+        fontWeight: 'bold',
+        opacity: 0.5,
+        background: 'gray',
+        transition: 'background 0.3s ease, opacity 0.3s ease',
+        '&:hover': {
+            background: '#696cc0',
+            opacity: 1,
+        },
+        color: 'white',
+    };
+
+    const activeButtonStyle = {
+        ...buttonStyle,
+        background: '#696cc0', // Same as hover style
+        opacity: 1,
+    };
+
+    const disabledButtonStyle = {
+        ...buttonStyle,
+        fontWeight: 'bold',
+        color: 'white',
+        opacity: 0.7,
+    };
+
+    const disabledTextStyle = {
+        fontWeight: 'bold',
+        color: 'white',
+    };
+
     return (
-        <div>
+        <div style={{ marginTop:'18px' }}>
             <Stack spacing={1} alignItems="center">
                 <Stack direction="row" spacing={1}>
                     {startIdx > 0 && (
                         <>
-                            <Chip sx={{ fontWeight: 'bold', color: 'white' }} onClick={() => handleChangeEpisode(episodes[0].slug)} label={episodes[0].name} color="primary" variant="outlined" />
-                            {startIdx > 1 && <Chip sx={{ fontWeight: 'bold', color: 'white' }} label="..." color="primary" variant="outlined" />}
+                            <Button 
+                                variant="contained"
+                                sx={buttonStyle} 
+                                onClick={() => handleChangeEpisode(episodes[0].slug)}
+                            >
+                                {episodes[0].name}
+                            </Button>
+                            {startIdx > 1 && (
+                                <Button sx={disabledButtonStyle} disabled>
+                                    <span style={disabledTextStyle}>...</span>
+                                </Button>
+                            )}
                         </>
                     )}
 
                     {episodesToShow.map((episode) => (
-                        <Chip className={(episode.slug === currentEpisode ? 'button-active': '')} sx={{ fontWeight: 'bold', color: 'white' }} key={episode.slug} onClick={() => handleChangeEpisode(episode.slug)} label={episode.name} color="primary" variant="outlined" />
+                        <Button
+                            variant="contained"
+                            sx={episode.slug === currentEpisode ? activeButtonStyle : buttonStyle}
+                            key={episode.slug}
+                            onClick={() => handleChangeEpisode(episode.slug)}
+                        >
+                            {episode.name}
+                        </Button>
                     ))}
 
                     {endIdx < episodes.length - 1 && (
                         <>
-                            {endIdx < episodes.length - 2 && <Chip sx={{ fontWeight: 'bold', color: 'white' }} label="..." color="primary" variant="outlined" />}
-                            <Chip sx={{ fontWeight: 'bold', color: 'white' }} onClick={() => handleChangeEpisode(episodes[episodes.length - 1].slug)} label={episodes[episodes.length - 1].name} color="primary" variant="outlined" />
+                            {endIdx < episodes.length - 2 && (
+                                <Button  sx={disabledButtonStyle} disabled>
+                                    <span style={disabledTextStyle}>...</span>
+                                </Button>
+                            )}
+                            <Button 
+                                variant="contained"
+                                sx={buttonStyle} 
+                                onClick={() => handleChangeEpisode(episodes[episodes.length - 1].slug)}
+                            >
+                                {episodes[episodes.length - 1].name}
+                            </Button>
                         </>
                     )}
                 </Stack>

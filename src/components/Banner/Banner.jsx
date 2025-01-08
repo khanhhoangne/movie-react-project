@@ -6,7 +6,7 @@ import Image from '~/components/Image';
 import { Button } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { Link } from 'react-router-dom';
-
+import CustomizeButton from '../CustomizeButton';
 
 const cx = classNames.bind(styles);
 
@@ -33,31 +33,7 @@ function Banner({ movie }) {
 
                         <div style={{ marginTop: '15px' }}>
                             <Link to={'/watch/' + movie.slug}>
-                                <Button
-                                    variant="contained"
-                                    sx={{
-                                        textTransform: 'none',
-                                        fontWeight: 'bold',
-                                        opacity: 0.5,
-                                        background: 'gray',
-                                        transition: 'background 0.3s ease, opacity 0.3s ease', // Smooth transition
-                                        '&:hover': {
-                                            background: '#696cc0', // Change to a little blue on hover
-                                            opacity: 1, // Set opacity to 1 on hover
-                                        },
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <PlayArrowIcon />
-                                        <strong style={{ marginTop: '2px' }}>Xem ngay</strong>
-                                    </div>
-                                </Button>
+                                <CustomizeButton/>
                             </Link>
                         </div>
                     </div>

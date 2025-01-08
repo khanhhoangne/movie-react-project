@@ -45,6 +45,8 @@ function GridMovie({ page, data, limit, onHandlePagination, result, total }) {
             sx={{ display: 'ruby-text', marginTop: '20px', color: 'white' }}
             count={totalPages}
             color="primary"
+            hidePrevButton
+            hideNextButton
           />
         </div>
       )}

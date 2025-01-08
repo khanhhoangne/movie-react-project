@@ -13,6 +13,8 @@ function Search() {
     const params = useParams();
     const query = encodeURIComponent(params.query);
 
+    document.title = 'Tìm kiếm: ' + query;
+
     const { data, isLoading, isError, isSuccess, refetch, isFetching } = useQuery('movies_search', async () => {
         return await httpRequest.get('v1/api/tim-kiem?keyword=' + query + "&limit=20");
     }, { refetchOnWindowFocus: false })

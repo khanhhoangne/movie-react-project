@@ -8,6 +8,8 @@ import Pagination from '@mui/material/Pagination';
 import PaginationCustom from '~/components/PaginationCustom';
 import decodeJSON from '~/utils/decodeJSON';
 import DownloadVideo from '~/components/DownloadVideo';
+import VideoPlayer from '~/components/VideoPlayer';
+
 
 function Watch() {
     const [episode, setEpisode] = useState(null);
@@ -40,7 +42,6 @@ function Watch() {
 
     if (data.data.status === undefined) {
        data.data = decodeJSON(data.data);
-
     }
 
 
@@ -62,16 +63,17 @@ function Watch() {
     if ((data?.data.episodes[0].server_data).length === 1) {
         hiddenScrollTab = true;
     }
+    
 
 
 
     if (isSuccess) {
         data.data.episodes[0].server_data = (data.data.episodes[0].server_data).filter(d => d.slug !== '')
 
+        document.title = data.data.movie.name;
+
         return (
             <div style={{ overflowX: 'hidden' }}>
-
-
                 <iframe
                     src={linkEmbed}
                     frameBorder='0'

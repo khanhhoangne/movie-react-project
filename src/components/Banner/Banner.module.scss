@@ -1,64 +1,55 @@
-$duration: 250ms;
-
-html {
-  scroll-behavior: smooth;
-}
+  $duration: 2500ms;
 
 
 
-.item {
-  padding: 0 2px;
-  transition: $duration all;
-  position: relative;
-  height: 500px;
-  border-radius: 15px;
-
-  margin: 2% 2%;
-  
-  .item-logo{
-    position: absolute;
-    bottom: 5%;
-    left: 40%;
-    width: 300px;
-  }
-
-  &:hover {
-    // margin: 0 5px;
-    visibility: visible; /* Make visible */
-    transform: scaleX(1.01); /* Scale smoothly */
-    z-index: 1;
-  }
-
-
-  &:hover .back {
-    top: 1px;
-    display: block;
-    opacity: 1; /* Makes it visible */
-    transition: opacity 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.5s linear;
-  }
-}
-
-.back {
-  position: absolute;
-  height: 100%;
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0));
-  background-color: none;
-  top: 100%; /* Initially hidden below the item */
-  opacity: 0; /* Initially hidden */
-  
-  width: 100%;
-
-  .movies-title {
-    font-size: 16px;
-    width: 76%;
+  .item {
+    padding: 0 2px;
     position: relative;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
+    height: 500px;
+    border-radius: 15px;
+
+    margin: 2% 2%;
+    
+ 
+
+    &:hover {
+      // margin: 0 5px;
+      visibility: visible; /* Make visible */
+      transform: scaleX(1.01); /* Scale smoothly */
+      z-index: 1;
+    }
+
+
+    &:hover .back {
+      top: 1px;
+      display: block;
+      opacity: 1; /* Makes it visible */
+      transition: opacity 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+
   }
 
-}
+  .back {
+    position: absolute;
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0));
+    background-color: none;
+    top: 100%; /* Initially hidden below the item */
+    opacity: 0; /* Initially hidden */
+    width: 100%;
+
+    .movies-title {
+      font-size: 16px;
+      width: 76%;
+      position: relative;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+    }
+
+  }
 
 
 

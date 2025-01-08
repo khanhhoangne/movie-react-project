@@ -8,6 +8,9 @@ import { Button } from '@mui/material';
 
 
 function Favorite() {
+  
+  document.title = 'Favorite';
+
   const [page, setPage] = React.useState(1);
 
   const { movies } = useAppContext();

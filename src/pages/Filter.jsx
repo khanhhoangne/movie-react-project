@@ -23,6 +23,7 @@ const types = [
 ];
 
 function Filter() {
+    document.title = 'Filter';
     const [movieType, setMovieType] = useState(types[0].slug);
     const [page, setPage] = useState(1);
     const [temp, setTemp] = useState(false);
